@@ -61,15 +61,19 @@ Documentation per part: [`docs/skill_injection.md`](docs/skill_injection.md),
 [`split/README.md`](split/README.md), [`skillopt_webmall/README.md`](skillopt_webmall/README.md)
 (design: [`DESIGN.md`](skillopt_webmall/DESIGN.md)), [`results/README.md`](results/README.md).
 
-All paths are derived from `paths.py` and anchored at the repository root, so scripts
-and tests behave the same from any working directory. Raw experiment outputs go to the
+All config and package paths are derived from `paths.py` and resolve against the repository
+root from any working directory. CLI arguments you pass (`RUN_DIR`, `--out`, `--ledger`,
+`--out_root`) are relative to where you run the command (`train`, `probe` and `test_eval`
+chdir to the repo root first). Raw experiment outputs go to the
 git-ignored folder `skillopt_results/` (override with `SKILLOPT_RESULTS_DIR`).
 
 ## Setup
 
 ```bash
 git submodule update --init --recursive    # Browsergym, AgentLab, SkillOpt
-cd Browsergym && make install && cd ..     # creates Browsergym/.venv
+python3.12 -m venv Browsergym/.venv && source Browsergym/.venv/bin/activate
+(cd Browsergym && make install)            # pip-installs into the active venv
+Browsergym/.venv/bin/pip install pytest
 Browsergym/.venv/bin/pip install -e AgentLab
 Browsergym/.venv/bin/pip install -e SkillOpt
 cp .env.example .env                       # then fill in OPENAI_API_KEY / OPENROUTER_API_KEY
@@ -111,7 +115,7 @@ fast loop (condition C3, `gpt-6-luna` as optimizer and target):
 
 1. step 0 `python -m webmall_skills.skillopt_webmall.probe`: base skill vs. no skill on val
 2. training `python -m webmall_skills.skillopt_webmall.train --out_root skillopt_results/c3_full`
-3. summaries `python -m webmall_skills.skillopt_webmall.report` and lineage export to `webmall_skills/skills/skillopt/`
+3. summaries `python -m webmall_skills.skillopt_webmall.report skillopt_results/c3_full` and lineage export to `webmall_skills/skills/skillopt/`
 4. held-out test `python -m webmall_skills.skillopt_webmall.test_eval {best,base,noskill}`
 5. raw outputs in `skillopt_results/`, committed summaries in `webmall_skills/results/skillopt/`
 
@@ -122,4 +126,4 @@ Commands, outputs and how to add a condition: [`skillopt_webmall/README.md`](ski
 - **New skill:** add `skills/<name>/SKILL.md`; it is immediately selectable as `skill = "<name>"` (see `skills/README.md`).
 - **New SkillOpt condition:** add a config next to `skillopt_webmall/configs/c3.yaml` and run it through `skillopt_webmall/train.py`; see `skillopt_webmall/README.md`.
 - **Reworking the base-skill construction:** `skill_construction/` is replaceable. Only `skills/base/SKILL.md` is consumed elsewhere, and the shared leakage blocklist lives in `contamination.py`, so changing or deleting `skill_construction/` does not break C3.
-- **Adding a split:** add `split/split_v3/` with a manifest whose `extends` records the sha256 of the previous manifest. Generate it by calling `extend_split` from new code (`make_split.py` only writes v1 or v2). Add `webmall_skills_v3_*` entries to `SPLIT_BENCHMARKS` in `split/benchmarks.py` with `split_dir` pointing at the new folder, and point `env.split_dir` in a new SkillOpt config at it. Never re-draw the test split.
+- **Adding a split:** add `split/split_v3/` with a manifest whose `extends` records the sha256 of the previous manifest. Generate it by calling `extend_split` from new code (`make_split.py` only writes v1 or v2). Add `webmall_skills_v3_*` entries to `SPLIT_BENCHMARKS` in `split/benchmarks.py` with `split_dir` pointing at the new folder, and point `env.split_dir` in a new SkillOpt config at it. `extend_split` hard-codes `extends.split = "split"` and the v2 `reason`, so a v3 manifest must set its own `extends.split` and `reason`. Never re-draw the test split.

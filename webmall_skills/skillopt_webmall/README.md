@@ -48,6 +48,8 @@ reads them only from the YAML (or `--cfg-options env.price_input_per_m=…`).
     $PY -m webmall_skills.skillopt_webmall.test_eval noskill
     $PY -m webmall_skills.skillopt_webmall.test_eval --summary-only
 
+Warning: `test_eval --summary-only` and `probe --overview-only` rewrite the committed `summary.*` files under `webmall_skills/results/skillopt/` from the local caches (empty in a fresh clone). Restore them with `git checkout -- webmall_skills/results`.
+
 `train` defaults to `--config configs/c3.yaml`; any SkillOpt CLI option works.
 The test split can also be run through AgentLab directly: `webmall_skills_test` with
 `skill = "skillopt"` in `run_webmall_study.py`.

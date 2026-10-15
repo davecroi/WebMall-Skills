@@ -19,4 +19,4 @@ SkillOpt run (`webmall_skills/skillopt_webmall/train.py`, config `webmall_skills
 → `run/history.json` → `history/` → `SKILL.md`.
 Method: `webmall_skills/skillopt_webmall/DESIGN.md`.
 
-Recorded paths in `run/config.json` and `HISTORY.md` refer to the thesis layout (`skillopt_webmall/split_v2` = `webmall_skills/split/split_v2`).
+Note added after export: recorded paths in `run/config.json` and `HISTORY.md`, and the split name on line 3 of `SUMMARY.md`, refer to the thesis layout (`skillopt_webmall/split_v2` = `webmall_skills/split/split_v2`). `SUMMARY.md` also still names the old benchmark `webmall_thesis_test_v1.0`, which is `webmall_skills_test` here.

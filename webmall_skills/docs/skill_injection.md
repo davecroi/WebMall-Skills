@@ -1,8 +1,8 @@
 # Skill injection for WebMall runs (`webmall_skills/injection.py`)
 
-Thesis code, not part of upstream WebMall/AgentLab. It lets `run_webmall_study.py`
-run the same agent under different skill conditions (no skill, hand-written skill,
-self-improved skill, recursively self-improved skill) by selecting a `SKILL.md` file.
+Not part of upstream WebMall/AgentLab. It lets `run_webmall_study.py`
+run the same agent under different skill conditions (no skill, base skill,
+SkillOpt skill) by selecting a `SKILL.md` file.
 
 ## Usage
 

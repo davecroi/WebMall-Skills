@@ -37,6 +37,8 @@ All of these are kept in the local thesis repository.
 
 ## Snapshot, not regenerable
 
+Warning: `test_eval --summary-only` and `probe --overview-only` rewrite the committed `summary.*` files under `webmall_skills/results/skillopt/` from the local caches (empty in a fresh clone). Restore them with `git checkout -- webmall_skills/results`.
+
 `report.py`, `probe --overview-only` and `test_eval --summary-only` read AgentLab run directories
 (`summary_info.json`, step pickles) for timing and outcomes. Those are not committed, so these
 summaries cannot be regenerated from this folder. Absolute paths were scrubbed: `exp_dir` in the

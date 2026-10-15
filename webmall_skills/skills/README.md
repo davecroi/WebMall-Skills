@@ -1,13 +1,6 @@
 # skills — skill files for the WebMall agent
 
-## Adding a skill
-
-1. Create `webmall_skills/skills/<name>/SKILL.md` (keep its provenance next to it).
-2. It is immediately selectable as `skill = "<name>"` in `run_webmall_study.py` /
-   `run_single_task.py`; no code change is needed.
-3. Do not edit `base/SKILL.md`.
-
-Thesis code (not part of upstream WebMall). Each subfolder holds one skill condition
+Not part of upstream WebMall. Each subfolder holds one skill condition
 that `run_webmall_study.py` / `run_single_task.py` can inject into the agent's prompt:
 
 ```python
@@ -50,7 +43,9 @@ on the train/val split (`webmall_skills/skillopt_webmall/`). `SKILL.md` is the b
 `HISTORY.md` and `history/` record every candidate edit, including rejected ones, and
 which versions became the new best. See `skillopt/README.md`.
 
-## Adding a new skill variant
+## Adding a skill
 
-Create a new folder (e.g. `webmall_skills/skills/self_improved/SKILL.md`), keep its own
-provenance next to it, and select it with `skill = "self_improved"`. Do not edit `base/SKILL.md`.
+1. Create `webmall_skills/skills/<name>/SKILL.md` (e.g. `webmall_skills/skills/self_improved/SKILL.md`) and keep its provenance next to it.
+2. It is immediately selectable as `skill = "<name>"` in `run_webmall_study.py` /
+   `run_single_task.py`; no code change is needed.
+3. Do not edit `base/SKILL.md`.
