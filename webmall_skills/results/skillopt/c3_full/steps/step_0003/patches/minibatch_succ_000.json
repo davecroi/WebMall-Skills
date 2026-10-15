@@ -1,0 +1,17 @@
+{
+  "batch_size": 4,
+  "success_patterns": [
+    "During checkout, handle country and state as custom selectors: open the dropdown and choose the matching option rather than trying to fill its displayed, non-editable value."
+  ],
+  "patch": {
+    "reasoning": "Both checkout trajectories encountered custom Country / Region and State / County controls. Clarifying how to interact with them helps avoid failed fill actions while reinforcing the existing checkout guidance.",
+    "edits": [
+      {
+        "op": "insert_after",
+        "target": "At `<shop>/checkout/`, fill billing and card fields by label. Check default Country / Region and State / County against the task address; change mismatches using their inner search fields and matching options.",
+        "content": " For custom selectors, open the combobox and use its dropdown search/options; do not try to fill a displayed value that is not an editable input. Confirm the selected country and state before continuing."
+      }
+    ]
+  },
+  "source_type": "success"
+}

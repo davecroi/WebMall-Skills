@@ -1,0 +1,53 @@
+{
+  "step": 1,
+  "action": "reject",
+  "n_total": 13,
+  "n_fail": 3,
+  "failure_patterns": [
+    {
+      "pattern": "Incomplete search and candidate enumeration: Agents stopped before exhausting relevant results or variants across shops, missing cheaper offers or additional qualifying products.",
+      "count": 1,
+      "task_ids": [
+        "Webmall_EndToEnd_Task8"
+      ]
+    },
+    {
+      "pattern": "Insufficient attribute verification: Agents selected or excluded candidates without fully establishing that the product and its described features met the task criteria.",
+      "count": 1,
+      "task_ids": [
+        "Webmall_Cheapest_Offer_Specific_Requirements_Task6"
+      ]
+    },
+    {
+      "pattern": "Incomplete task execution: The agent spent its trajectory searching and preparing checkout but never completed the required purchase or final submission.",
+      "count": 1,
+      "task_ids": [
+        "Webmall_Products_Fulfilling_Specific_Requirements_Task4"
+      ]
+    }
+  ],
+  "score_before": 0.7047619047619048,
+  "score_after": 0.6095238095238096,
+  "rejected_edits": [
+    {
+      "op": "append",
+      "content": "\n## Search and Verification Checklist\n\nDo not treat a keyword-search result as a complete product list or as proof that a product qualifies. Track the result count, inspect all relevant pages, and search useful model-name, category, and feature synonyms when results appear incomplete. Open plausible candidates and verify both product type and each requested attribute from the product details. For cheapest tasks, compare qualifying candidates across every shop and continue checking results and ties before choosing; for “all offers” tasks, inspect all plausible variants rather than only the first matching model.",
+      "target": ""
+    },
+    {
+      "op": "insert_after",
+      "content": "After consequential actions, inspect the resulting URL, page content, or confirmation status to verify they succeeded. If an action times out or errors, re-check the current page and state before retrying: it may already have succeeded, and repeating it could cause duplicate actions.",
+      "target": "1. Review the current page and interaction history before acting. Use accessibility-tree bids and interact only with visible elements."
+    },
+    {
+      "op": "append",
+      "content": "\n## Task Closeout\n\nBefore finishing, check the task’s required outcomes: all requested products are selected, every required cart and checkout is completed (including separate shops when needed), and all required offer URLs are recorded exactly. Then navigate to the solution page, enter the required URL list or `Done`, and press **Submit Final Result**. Do not end after browsing, filling checkout fields, or entering a submission without submitting it.",
+      "target": ""
+    },
+    {
+      "op": "insert_after",
+      "content": "\n   For multi-part requirements, normalize equivalent configuration notation (such as total kit capacity versus per-module capacity) and verify every required attribute. Reject near-matches that differ in a required configuration, socket, or specification.",
+      "target": "2. For cross-shop searches, search each shop separately; compare titles and specifications, allowing for case, punctuation, and quote differences."
+    }
+  ]
+}

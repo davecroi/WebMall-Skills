@@ -1,0 +1,48 @@
+{
+  "step": 4,
+  "action": "reject",
+  "n_total": 13,
+  "n_fail": 3,
+  "failure_patterns": [
+    {
+      "pattern": "incomplete_cross_shop_coverage: Agents found qualifying models but missed separate qualifying offers for the same models at other retailers, often by relying on category searches or carrying forward only one shop’s URL.",
+      "count": 1,
+      "task_ids": [
+        "Webmall_Products_Satisfying_Vague_Requirements_Task5"
+      ]
+    },
+    {
+      "pattern": "unsupported_attribute_inference: An agent included a GPU based on an inferred clock-speed match rather than verifying the requested clock metric and threshold for that exact offer.",
+      "count": 1,
+      "task_ids": [
+        "Webmall_Products_Fulfilling_Specific_Requirements_Task8"
+      ]
+    },
+    {
+      "pattern": "F1=0.50; 2 gold offer(s) missing, 0 wrong offer(s) submitted",
+      "count": 1,
+      "task_ids": [
+        "Webmall_Products_Satisfying_Vague_Requirements_Task3"
+      ]
+    }
+  ],
+  "score_before": 0.7871901977165136,
+  "score_after": 0.5952380952380952,
+  "rejected_edits": [
+    {
+      "op": "append",
+      "content": "\n\n## Final Cross-Retailer Duplicate Audit\n\nBefore submitting an all-offers result, audit every confirmed qualifying model against every shop, even if that shop’s general category results appeared complete. Search the exact model name and useful model-number variants in each shop. Treat each retailer’s matching product page as a separate offer: record and submit each qualifying retailer-specific URL rather than reusing one shop’s URL or assuming identical models are a single offer. Reconcile the per-shop ledger against the final URL list before navigating to the solution page.",
+      "target": ""
+    },
+    {
+      "op": "append",
+      "content": "\n\n## Verify the Exact Requested Specification\n\nFor each candidate, confirm every requirement from evidence for that specific offer. Match the specification type the task asks for (such as base, boost, or maximum clock speed), units, and strict or inclusive threshold; do not substitute a related metric or infer a value from the model family. If the listing does not establish the required attribute, investigate the product description or exclude the candidate rather than treating an unverified assumption as confirmation.",
+      "target": ""
+    },
+    {
+      "op": "insert_after",
+      "content": "\n   Treat generation, tier, and other model-number differences as substantive, not formatting variations. A search redirect is only a candidate: confirm the product title and requested identifiers before recording its URL or price.",
+      "target": "4. Validate search hits: matching can occur in descriptions and inside longer words, not just titles."
+    }
+  ]
+}

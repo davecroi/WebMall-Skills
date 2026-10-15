@@ -1,0 +1,34 @@
+{
+  "batch_size": 3,
+  "failure_summary": [
+    {
+      "failure_type": "Incomplete search and candidate enumeration",
+      "count": 3,
+      "description": "Agents stopped before exhausting relevant results or variants across shops, missing cheaper offers or additional qualifying products."
+    },
+    {
+      "failure_type": "Insufficient attribute verification",
+      "count": 2,
+      "description": "Agents selected or excluded candidates without fully establishing that the product and its described features met the task criteria."
+    },
+    {
+      "failure_type": "Incomplete task execution",
+      "count": 1,
+      "description": "The agent spent its trajectory searching and preparing checkout but never completed the required purchase or final submission."
+    }
+  ],
+  "patch": {
+    "reasoning": "The skill already calls for cross-shop searches, pagination, attribute inspection, and final submission. These edits make those requirements operational: exhaust candidate sets before choosing, verify product type and features from evidence, and reserve time to finish every requested action and submit.",
+    "edits": [
+      {
+        "op": "append",
+        "content": "\n## Search and Verification Checklist\n\nDo not treat a keyword-search result as a complete product list or as proof that a product qualifies. Track the result count, inspect all relevant pages, and search useful model-name, category, and feature synonyms when results appear incomplete. Open plausible candidates and verify both product type and each requested attribute from the product details. For cheapest tasks, compare qualifying candidates across every shop and continue checking results and ties before choosing; for “all offers” tasks, inspect all plausible variants rather than only the first matching model."
+      },
+      {
+        "op": "append",
+        "content": "\n## Task Closeout\n\nBefore finishing, check the task’s required outcomes: all requested products are selected, every required cart and checkout is completed (including separate shops when needed), and all required offer URLs are recorded exactly. Then navigate to the solution page, enter the required URL list or `Done`, and press **Submit Final Result**. Do not end after browsing, filling checkout fields, or entering a submission without submitting it."
+      }
+    ]
+  },
+  "source_type": "failure"
+}

@@ -1,0 +1,17 @@
+{
+  "batch_size": 4,
+  "success_patterns": [
+    "Distinguish the requested product from near matches by checking model-defining numbers, suffixes, and product type; do not mistake a related variant or a shared keyword for the requested item.",
+    "Treat incidental variants, such as color, as separate offers when the task asks for all offers and the core requested model matches."
+  ],
+  "patch": {
+    "reasoning": "The trajectories included misleading search hits such as a phone whose 24GB referred to RAM, a GPU with a different model suffix, and keyboard-related accessories. The Antec task also showed that distinct color versions of the requested core model should both be retained. The skill advises validating hits, but does not explicitly distinguish model identity from incidental variants.",
+    "edits": [
+      {
+        "insert_after": "## Verify Each Required Attribute",
+        "content": "\nFor named-product searches, verify model-defining identifiers and product type, not just shared keywords: suffixes, model numbers, or a different device type can make a result a near match rather than the requested product. When the task asks for all offers, include distinct incidental variants (such as colors) if each is still an offer for the requested core model."
+      }
+    ]
+  },
+  "source_type": "success"
+}

@@ -1,0 +1,23 @@
+{
+  "batch_size": 4,
+  "success_patterns": [
+    "When a task supplies a product-page URL, agents open it directly and verify the product rather than beginning with a broad search; use cross-shop searching only when comparison or alternatives are requested.",
+    "For checkout tasks, agents verify that placing the order reached an order-received confirmation before navigating to the solution page."
+  ],
+  "patch": {
+    "reasoning": "The skill describes search and checkout actions but does not explicitly distinguish supplied product URLs from products that must be found, or require confirmation that checkout succeeded. Both patterns recur across multiple successful trajectories and help avoid unnecessary searches or false completion.",
+    "edits": [
+      {
+        "op": "insert_after",
+        "target": "2. For cross-shop searches, search each shop separately; compare titles and specifications, allowing for case, punctuation, and quote differences.",
+        "content": "\n3. If the task supplies a product-page URL, open it directly and verify the product title and relevant details. Use that page directly for requested cart or checkout actions; search across shops only when the task asks you to compare offers or find alternatives."
+      },
+      {
+        "op": "replace",
+        "target": "- At `<shop>/checkout/`, fill billing and card fields by label. Check default Country / Region and State / County against the task address; change mismatches using their inner search fields and matching options. Complete checkout with **Place order**.",
+        "content": "- At `<shop>/checkout/`, fill billing and card fields by label. Check default Country / Region and State / County against the task address; change mismatches using their inner search fields and matching options. Complete checkout with **Place order**, then verify that an order-received confirmation appears before proceeding to final submission."
+      }
+    ]
+  },
+  "source_type": "success"
+}

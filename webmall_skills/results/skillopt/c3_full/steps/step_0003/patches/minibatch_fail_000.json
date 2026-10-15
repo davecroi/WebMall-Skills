@@ -1,0 +1,35 @@
+{
+  "batch_size": 4,
+  "failure_summary": [
+    {
+      "failure_type": "incomplete_offer_coverage",
+      "count": 4,
+      "description": "Agents stopped with plausible candidates without reliably checking all relevant products, search terms, shops, or result pages before choosing the winner."
+    },
+    {
+      "failure_type": "candidate_eligibility_verification",
+      "count": 3,
+      "description": "Agents ranked search hits or loosely related products without sufficiently confirming that each one met every requested attribute."
+    },
+    {
+      "failure_type": "workflow_closeout",
+      "count": 2,
+      "description": "Agents exhausted the interaction budget before completing all required purchases or submitting the final result."
+    }
+  ],
+  "patch": {
+    "reasoning": "The skill already calls for cross-shop searches, attribute inspection, pagination, and closeout. These edits turn those principles into explicit decision gates: verify eligibility before ranking candidates, finish coverage before choosing a winner, and reserve interactions for every required checkout and submission.",
+    "edits": [
+      {
+        "op": "replace",
+        "target": "For tasks asking for all qualifying offers or every offer tied at a maximum, keep a per-shop ledger of candidates, specifications, and exact offer URLs. After identifying a plausible product, search its distinctive model name or part number in each shop as well as using the general product/category query; equivalent models may have separate shop offers even when a generic query misses them. Count each shop’s relevant results and inspect its remaining pages before concluding that no other qualifying offer exists.",
+        "content": "For cheapest, tied, or complete-result tasks, keep a per-shop ledger of candidate names, prices, evidence for every requested attribute, and exact offer URLs. Treat search hits as candidates, not confirmed matches: inspect titles and product descriptions for each constraint, and exclude related products or variants that do not meet it. Search both the general product/category terms and distinctive model names or part numbers in every shop; when wording may vary, try a useful synonym or category route. Record each result count, inspect all relevant pages, and verify that no qualifying offer or equal-price tie was missed before choosing the winner."
+      },
+      {
+        "op": "append",
+        "content": "\n\n## Reserve Budget for Completion\n\nBefore a multi-shop purchase, plan for a separate cart review and checkout at every shop containing a selected offer; do not assume orders can be combined across shops. Reserve enough interactions to complete all requested orders, verify each order-received confirmation, and navigate to the solution page to submit the exact selected offer URLs. If the task asks only for results, still reserve time to submit them. Do not begin optional searches or checkout steps that leave a required order or final submission unfinished."
+      }
+    ]
+  },
+  "source_type": "failure"
+}

@@ -1,0 +1,25 @@
+{
+  "reasoning": "Preserved the failure-driven completeness checks as the highest-priority edit. Added both distinct success-driven insights: treat matching products on different shop domains as separate offers, and include every qualifying offer tied at the lowest price. No edits target protected content.",
+  "edits": [
+    {
+      "op": "append",
+      "content": "\n\n## Completeness Checks\n\n- For attribute-based or vague searches, do not rely on one exact query. Search the product category and use relevant attribute synonyms, model terms, or specification values; validate candidate products using their titles and descriptions. Search results may include noisy matches or omit products whose wording differs from the query.\n- Before declaring a cheapest offer, reconcile the result count and relevant pages for each shop and compare every plausible qualifying candidate found. A low-priced candidate is not necessarily the lowest qualifying offer.\n- For tasks requesting multiple products, track each requested product separately through offer selection, cart addition, and checkout. Do not navigate to the solution page until every requested purchase is complete; then verify that the final submission includes every required offer URL.",
+      "support_count": 2,
+      "source_type": "failure"
+    },
+    {
+      "op": "replace",
+      "target": "7. Copy submission URLs exactly from product pages; their paths follow `/product/<slug>/`.",
+      "content": "7. Copy submission URLs exactly from product pages; their paths follow `/product/<slug>/`. Treat matching products on different shop domains as separate offers, even when their product slugs are identical; include each shop's exact URL.",
+      "support_count": 4,
+      "source_type": "success"
+    },
+    {
+      "op": "insert_after",
+      "target": "6. For cheapest searches, use ascending price sorting on E-Store Athletes, CamelCases, and Hardware Cafe. Compare TechTalk results yourself; its sorting controls do not offer price sorting.",
+      "content": "\n   - After checking all shops and remaining result pages, return every qualifying offer tied at the lowest price; do not stop at the first lowest-priced result.",
+      "support_count": 4,
+      "source_type": "success"
+    }
+  ]
+}

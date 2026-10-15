@@ -1,0 +1,17 @@
+{
+  "batch_size": 4,
+  "success_patterns": [
+    "For cheapest-offer tasks, compare qualifying offers across all shops and return every offer tied at the lowest price."
+  ],
+  "patch": {
+    "reasoning": "The skill already instructs agents to compare shops and follow pagination, but does not explicitly say to preserve all offers tied at the minimum. Two trajectories required returning every tied-lowest offer, so this closes a useful gap in the cheapest-search guidance.",
+    "edits": [
+      {
+        "op": "insert_after",
+        "target": "6. For cheapest searches, use ascending price sorting on E-Store Athletes, CamelCases, and Hardware Cafe. Compare TechTalk results yourself; its sorting controls do not offer price sorting.",
+        "content": "\n   - After checking all shops and remaining result pages, return every qualifying offer tied at the lowest price; do not stop at the first lowest-priced result."
+      }
+    ]
+  },
+  "source_type": "success"
+}

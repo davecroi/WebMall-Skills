@@ -1,0 +1,16 @@
+{
+  "batch_size": 4,
+  "success_patterns": [
+    "Validate every requested model variant and specification, rejecting near matches unless the task explicitly asks for substitutes."
+  ],
+  "patch": {
+    "reasoning": "Across multiple trajectories, success depended on distinguishing close variants and checking that every requested attribute matched—for example, RAM kit size, keyboard edition, and graphics-card model. The skill advises validating hits, but does not explicitly warn against treating a similar variant as an exact match.",
+    "edits": [
+      {
+        "op": "append",
+        "content": "\n- For exact-product and requirements tasks, treat model modifiers and specified attributes as meaningful: verify each against the title or product details, and reject near variants (for example, EVO vs. non-EVO or a different capacity/speed). Consider alternatives only when the task asks for substitutes."
+      }
+    ]
+  },
+  "source_type": "success"
+}

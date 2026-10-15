@@ -1,0 +1,18 @@
+{
+  "batch_size": 4,
+  "success_patterns": [
+    "When a checkout country or state is wrong, open the custom dropdown and select the matching option rather than trying to fill its displayed value.",
+    "Confirm the updated country and state before completing the remaining checkout fields."
+  ],
+  "patch": {
+    "reasoning": "The skill already instructs agents to correct country and state mismatches, but two checkout trajectories encountered errors by trying to fill the dropdown’s non-editable display element. Clarifying the interaction prevents that repeated failure while reinforcing the existing checkout guidance.",
+    "edits": [
+      {
+        "op": "replace",
+        "target": "- At `<shop>/checkout/`, fill billing and card fields by label. Check default Country / Region and State / County against the task address; change mismatches using their inner search fields and matching options. Complete checkout with **Place order**, then verify that an order-received confirmation appears before proceeding to final submission.",
+        "content": "- At `<shop>/checkout/`, fill billing and card fields by label. Check default Country / Region and State / County against the task address. For a mismatch, open the custom dropdown, use its inner editable search field if available, and select the matching option; do not try to fill the displayed-value element. Verify the updated selection before continuing. Complete checkout with **Place order**, then verify that an order-received confirmation appears before proceeding to final submission."
+      }
+    ]
+  },
+  "source_type": "success"
+}

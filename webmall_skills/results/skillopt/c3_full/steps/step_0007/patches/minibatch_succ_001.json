@@ -1,0 +1,17 @@
+{
+  "batch_size": 4,
+  "success_patterns": [
+    "When a broad search is noisy or misses likely products, use the shop’s relevant category as a focused fallback and inspect its result count and pages."
+  ],
+  "patch": {
+    "reasoning": "Category navigation helped narrow broad SSD results and find a qualifying GPU after a model-number search failed. Encoding it as a targeted fallback complements the existing guidance to bound searches and inspect pagination.",
+    "edits": [
+      {
+        "op": "insert_after",
+        "target": "## Bound the Search Before Closeout",
+        "content": "\nWhen a search is noisy or misses likely products, use the shop’s relevant product category as a focused fallback. Check the category’s result count and inspect its pages before concluding the shop has no matching offer."
+      }
+    ]
+  },
+  "source_type": "success"
+}

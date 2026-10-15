@@ -1,0 +1,50 @@
+{
+  "step": 6,
+  "action": "reject",
+  "n_total": 13,
+  "n_fail": 4,
+  "failure_patterns": [
+    {
+      "pattern": "incomplete_offer_coverage: Stopped short of finding all qualifying offers or the true cheapest offer, missing relevant model variants across shops.",
+      "count": 1,
+      "task_ids": [
+        "Webmall_EndToEnd_Task8"
+      ]
+    },
+    {
+      "pattern": "qualification_evidence_mismatch: Treated support for an RGB accessory as evidence that the motherboard itself has RGB lighting.",
+      "count": 1,
+      "task_ids": [
+        "Webmall_Cheapest_Offer_Specific_Requirements_Task6"
+      ]
+    },
+    {
+      "pattern": "incomplete_multi_shop_checkout: Started checkout for one item in a multi-shop purchase but did not complete all required orders or submit the result.",
+      "count": 1,
+      "task_ids": [
+        "Webmall_Products_Fulfilling_Specific_Requirements_Task8"
+      ]
+    },
+    {
+      "pattern": "F1=0.67; 1 gold offer(s) missing, 0 wrong offer(s) submitted",
+      "count": 1,
+      "task_ids": [
+        "Webmall_Cheapest_Offer_Vague_Requirements_Task3"
+      ]
+    }
+  ],
+  "score_before": 0.7925170068027211,
+  "score_after": 0.6666666666666666,
+  "rejected_edits": [
+    {
+      "op": "replace",
+      "content": "Qualify each distinct offer only when its own title, specifications, or description provide evidence for every required attribute. Distinguish a product having a feature from merely supporting an accessory or add-on that provides it: a header, connector, or compatibility claim alone does not prove the feature is included. Do not infer a feature from a customizable display, a similar product, or another variant in the same product family; for example, an LCD alone does not establish GIF playback. If evidence is unclear, inspect that offer’s product details and keep it out of the final qualifying set unless the requirement is supported.",
+      "target": "Qualify each distinct offer only when its own title, specifications, or description provide evidence for every required attribute. Do not infer a feature from a customizable display, a similar product, or another variant in the same product family; for example, an LCD alone does not establish GIF playback. If evidence is unclear, inspect that offer’s product details and keep it out of the final qualifying set unless the requirement is supported."
+    },
+    {
+      "op": "append",
+      "content": "\n\n## Complete Multi-Shop Purchases\n\nFor an end-to-end task with selected offers from different shops, group the chosen items by shop. Add all selected items for one shop to that shop’s cart and complete its checkout; repeat for each other shop. Before navigating away from a shop, verify its order-received confirmation. Complete every required order before navigating to the solution page and submitting the exact selected offer URLs.",
+      "target": ""
+    }
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "batch_size": 3,
+  "failure_summary": [
+    {
+      "failure_type": "incomplete_cross_shop_coverage",
+      "count": 3,
+      "description": "Agents found qualifying models but missed separate qualifying offers for the same models at other retailers, often by relying on category searches or carrying forward only one shop’s URL."
+    },
+    {
+      "failure_type": "unsupported_attribute_inference",
+      "count": 1,
+      "description": "An agent included a GPU based on an inferred clock-speed match rather than verifying the requested clock metric and threshold for that exact offer."
+    }
+  ],
+  "patch": {
+    "reasoning": "The skill already recommends searching distinctive model names across shops, but these trajectories show that this needs to be an explicit pre-submission audit that treats each retailer’s listing as a separate offer. A separate attribute check discourages including candidates whose specifications do not explicitly establish the requested metric.",
+    "edits": [
+      {
+        "op": "append",
+        "content": "\n\n## Final Cross-Retailer Duplicate Audit\n\nBefore submitting an all-offers result, audit every confirmed qualifying model against every shop, even if that shop’s general category results appeared complete. Search the exact model name and useful model-number variants in each shop. Treat each retailer’s matching product page as a separate offer: record and submit each qualifying retailer-specific URL rather than reusing one shop’s URL or assuming identical models are a single offer. Reconcile the per-shop ledger against the final URL list before navigating to the solution page."
+      },
+      {
+        "op": "append",
+        "content": "\n\n## Verify the Exact Requested Specification\n\nFor each candidate, confirm every requirement from evidence for that specific offer. Match the specification type the task asks for (such as base, boost, or maximum clock speed), units, and strict or inclusive threshold; do not substitute a related metric or infer a value from the model family. If the listing does not establish the required attribute, investigate the product description or exclude the candidate rather than treating an unverified assumption as confirmation."
+      }
+    ]
+  },
+  "source_type": "failure"
+}

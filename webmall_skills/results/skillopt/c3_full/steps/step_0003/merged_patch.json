@@ -1,0 +1,33 @@
+{
+  "reasoning": "Kept the higher-priority failure edits for complete-result verification, exact offer-to-URL checks, and reserving time for completion. Folded the success edit about meaningful model modifiers into the failure-driven cross-shop guidance because it addresses the same matching point. Preserved the distinct checkout-selector guidance from the success group.",
+  "edits": [
+    {
+      "op": "replace",
+      "target": "For tasks asking for all qualifying offers or every offer tied at a maximum, keep a per-shop ledger of candidates, specifications, and exact offer URLs. After identifying a plausible product, search its distinctive model name or part number in each shop as well as using the general product/category query; equivalent models may have separate shop offers even when a generic query misses them. Count each shop’s relevant results and inspect its remaining pages before concluding that no other qualifying offer exists.",
+      "content": "For cheapest, tied, or complete-result tasks, keep a per-shop ledger of candidate names, prices, evidence for every requested attribute, and exact offer URLs. Treat search hits as candidates, not confirmed matches: inspect titles and product descriptions for each constraint, including meaningful model modifiers and specified attributes, and exclude related products or variants that do not meet them (for example, EVO vs. non-EVO or a different capacity or speed). Related products can be leads to investigate, but are not confirmed search results or a reason to stop searching. For capability requirements, accept equivalent terminology when the description or model specifications establish the requested capability; do not require an exact keyword match. Search both general product/category terms and distinctive model names or part numbers in every shop; when wording may vary, try a useful synonym or category route. Record each result count, inspect all relevant pages, and verify that no qualifying offer or equal-price tie was missed before choosing the winner.",
+      "support_count": 5,
+      "source_type": "failure"
+    },
+    {
+      "op": "append",
+      "target": "",
+      "content": "\n\n## Final Offer-to-URL Check\n\nBefore submission, verify each recorded offer against its own product page: confirm the retailer, product title, requested attributes, and exact current URL. Keep each URL paired with that verified offer, and do not infer a URL from a similar model or carry one forward after navigating to a different product.",
+      "support_count": 1,
+      "source_type": "failure"
+    },
+    {
+      "op": "insert_after",
+      "target": "Plan a focused search pass for each shop and avoid repeating queries or navigation that produced no new evidence. Once every shop has been checked and the relevant result pages or categories have been covered, switch to recording exact URLs and submitting the result; do not spend the remaining interaction budget on optional searches while leaving the required submission unfinished.",
+      "content": "\n\n## Reserve Budget for Completion\n\nBefore a multi-shop purchase, plan for a separate cart review and checkout at every shop containing a selected offer; do not assume orders can be combined across shops. Reserve enough interactions to complete all requested orders, verify each order-received confirmation, and navigate to the solution page to submit the exact selected offer URLs. If the task asks only for results, still reserve time to submit them. Do not begin optional searches or checkout steps that leave a required order or final submission unfinished.",
+      "support_count": 4,
+      "source_type": "failure"
+    },
+    {
+      "op": "insert_after",
+      "target": "At `<shop>/checkout/`, fill billing and card fields by label. Check default Country / Region and State / County against the task address; change mismatches using their inner search fields and matching options.",
+      "content": " For custom selectors, open the combobox and use its dropdown search/options; do not try to fill a displayed value that is not an editable input. Confirm the selected country and state before continuing.",
+      "support_count": 4,
+      "source_type": "success"
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "reasoning": "The skill recommends ascending price sorting and bounded searches, but does not specify when a verified sorted list can be safely cut short or what to do when sorting fails. The trajectories show both cases: failed sort attempts were handled by inspecting remaining pages, while a verified ascending list allowed the search to stop once prices exceeded the current best.",
+  "edits": [
+    {
+      "op": "insert_after",
+      "target": "Plan a focused search pass for each shop and avoid repeating queries or navigation that produced no new evidence. Once every shop has been checked and the relevant result pages or categories have been covered, switch to recording exact URLs and submitting the result; do not spend the remaining interaction budget on optional searches while leaving the required submission unfinished.",
+      "content": "\nFor cheapest-offer searches, when ascending price order is confirmed, inspect candidates until prices are strictly above the current best; retain every candidate tied at the best price, and later results cannot improve it. If sorting fails or the order is uncertain, do not assume the first page is cheapest or complete—check result counts and remaining pages, or use a focused query.",
+      "source_type": "success",
+      "support_count": 4
+    }
+  ]
+}

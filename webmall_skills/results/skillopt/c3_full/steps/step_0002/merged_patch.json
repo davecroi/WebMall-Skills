@@ -1,0 +1,38 @@
+{
+  "reasoning": "Preserved both failure-driven edits as the higher-priority corrections for complete cross-shop coverage and timely submission. Included the three distinct success-driven improvements: using supplied product URLs directly when comparison is unnecessary, returning all lowest-price ties, and verifying checkout confirmation. No edits target protected content, and no edits duplicate or conflict with one another.",
+  "edits": [
+    {
+      "op": "append",
+      "content": "\n## Cross-Shop Coverage for Complete and Tied Results\n\nFor tasks asking for all qualifying offers or every offer tied at a maximum, keep a per-shop ledger of candidates, specifications, and exact offer URLs. After identifying a plausible product, search its distinctive model name or part number in each shop as well as using the general product/category query; equivalent models may have separate shop offers even when a generic query misses them. Count each shop’s relevant results and inspect its remaining pages before concluding that no other qualifying offer exists.",
+      "support_count": 4,
+      "source_type": "failure"
+    },
+    {
+      "op": "append",
+      "content": "\n## Bound the Search Before Closeout\n\nPlan a focused search pass for each shop and avoid repeating queries or navigation that produced no new evidence. Once every shop has been checked and the relevant result pages or categories have been covered, switch to recording exact URLs and submitting the result; do not spend the remaining interaction budget on optional searches while leaving the required submission unfinished.",
+      "support_count": 4,
+      "source_type": "failure"
+    },
+    {
+      "op": "insert_after",
+      "target": "2. For cross-shop searches, search each shop separately; compare titles and specifications, allowing for case, punctuation, and quote differences.",
+      "content": "\n   If the task supplies a product-page URL, open it directly and verify the product title and relevant details. Use that page directly for requested cart or checkout actions; search across shops only when the task asks you to compare offers or find alternatives.",
+      "support_count": 4,
+      "source_type": "success"
+    },
+    {
+      "op": "insert_after",
+      "target": "6. For cheapest searches, use ascending price sorting on E-Store Athletes, CamelCases, and Hardware Cafe. Compare TechTalk results yourself; its sorting controls do not offer price sorting.",
+      "content": "\n   When the task requests the cheapest offer, return every qualifying offer tied at the lowest price. If comparing separate variants or capacities, determine and include all lowest-price ties within each group.",
+      "support_count": 4,
+      "source_type": "success"
+    },
+    {
+      "op": "replace",
+      "target": "- At `<shop>/checkout/`, fill billing and card fields by label. Check default Country / Region and State / County against the task address; change mismatches using their inner search fields and matching options. Complete checkout with **Place order**.",
+      "content": "- At `<shop>/checkout/`, fill billing and card fields by label. Check default Country / Region and State / County against the task address; change mismatches using their inner search fields and matching options. Complete checkout with **Place order**, then verify that an order-received confirmation appears before proceeding to final submission.",
+      "support_count": 4,
+      "source_type": "success"
+    }
+  ]
+}

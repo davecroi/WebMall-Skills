@@ -1,0 +1,17 @@
+{
+  "batch_size": 2,
+  "success_patterns": [
+    "Treat search hits that differ in model generation or tier as near matches, not equivalent offers; verify those identifiers before recording an offer."
+  ],
+  "patch": {
+    "reasoning": "Both trajectories encountered search results that matched the query but named a different product variant. Explicitly distinguishing substantive model identifiers from formatting differences helps prevent false matches, especially when searches redirect directly to a product page.",
+    "edits": [
+      {
+        "op": "insert_after",
+        "target": "4. Validate search hits: matching can occur in descriptions and inside longer words, not just titles.",
+        "content": "\n   Treat generation, tier, and other model-number differences as substantive, not formatting variations. A search redirect is only a candidate: confirm the product title and requested identifiers before recording its URL or price."
+      }
+    ]
+  },
+  "source_type": "success"
+}

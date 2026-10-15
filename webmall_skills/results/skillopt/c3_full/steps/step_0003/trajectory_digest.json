@@ -1,0 +1,62 @@
+{
+  "step": 3,
+  "action": "reject",
+  "n_total": 13,
+  "n_fail": 5,
+  "failure_patterns": [
+    {
+      "pattern": "incomplete_offer_coverage: Agents stopped with plausible candidates without reliably checking all relevant products, search terms, shops, or result pages before choosing the winner.",
+      "count": 1,
+      "task_ids": [
+        "Webmall_EndToEnd_Task8"
+      ]
+    },
+    {
+      "pattern": "candidate_eligibility_verification: Agents ranked search hits or loosely related products without sufficiently confirming that each one met every requested attribute.",
+      "count": 1,
+      "task_ids": [
+        "Webmall_Cheapest_Offer_Vague_Requirements_Task3"
+      ]
+    },
+    {
+      "pattern": "workflow_closeout: Agents exhausted the interaction budget before completing all required purchases or submitting the final result.",
+      "count": 1,
+      "task_ids": [
+        "Webmall_Cheapest_Offer_Specific_Requirements_Task6"
+      ]
+    },
+    {
+      "pattern": "coverage: Stopped after verifying a small subset of candidates, missing qualifying offers across shops and among related product leads.",
+      "count": 1,
+      "task_ids": [
+        "Webmall_Products_Fulfilling_Specific_Requirements_Task4"
+      ]
+    },
+    {
+      "pattern": "qualification: Appeared to require an explicit mention of GIFs, overlooking plausible display-capable models whose descriptions used related display terminology.",
+      "count": 1,
+      "task_ids": [
+        "Webmall_Cheapest_Offer_Specific_Requirements_Task4"
+      ]
+    }
+  ],
+  "score_before": 0.7871901977165136,
+  "score_after": 0.6375661375661376,
+  "rejected_edits": [
+    {
+      "op": "replace",
+      "content": "For cheapest, tied, or complete-result tasks, keep a per-shop ledger of candidate names, prices, evidence for every requested attribute, and exact offer URLs. Treat search hits as candidates, not confirmed matches: inspect titles and product descriptions for each constraint, including meaningful model modifiers and specified attributes, and exclude related products or variants that do not meet them (for example, EVO vs. non-EVO or a different capacity or speed). Related products can be leads to investigate, but are not confirmed search results or a reason to stop searching. For capability requirements, accept equivalent terminology when the description or model specifications establish the requested capability; do not require an exact keyword match. Search both general product/category terms and distinctive model names or part numbers in every shop; when wording may vary, try a useful synonym or category route. Record each result count, inspect all relevant pages, and verify that no qualifying offer or equal-price tie was missed before choosing the winner.",
+      "target": "For tasks asking for all qualifying offers or every offer tied at a maximum, keep a per-shop ledger of candidates, specifications, and exact offer URLs. After identifying a plausible product, search its distinctive model name or part number in each shop as well as using the general product/category query; equivalent models may have separate shop offers even when a generic query misses them. Count each shop’s relevant results and inspect its remaining pages before concluding that no other qualifying offer exists."
+    },
+    {
+      "op": "insert_after",
+      "content": "\n\n## Reserve Budget for Completion\n\nBefore a multi-shop purchase, plan for a separate cart review and checkout at every shop containing a selected offer; do not assume orders can be combined across shops. Reserve enough interactions to complete all requested orders, verify each order-received confirmation, and navigate to the solution page to submit the exact selected offer URLs. If the task asks only for results, still reserve time to submit them. Do not begin optional searches or checkout steps that leave a required order or final submission unfinished.",
+      "target": "Plan a focused search pass for each shop and avoid repeating queries or navigation that produced no new evidence. Once every shop has been checked and the relevant result pages or categories have been covered, switch to recording exact URLs and submitting the result; do not spend the remaining interaction budget on optional searches while leaving the required submission unfinished."
+    },
+    {
+      "op": "append",
+      "content": "\n\n## Final Offer-to-URL Check\n\nBefore submission, verify each recorded offer against its own product page: confirm the retailer, product title, requested attributes, and exact current URL. Keep each URL paired with that verified offer, and do not infer a URL from a similar model or carry one forward after navigating to a different product.",
+      "target": ""
+    }
+  ]
+}

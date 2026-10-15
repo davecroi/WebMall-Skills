@@ -1,0 +1,17 @@
+{
+  "batch_size": 3,
+  "success_patterns": [
+    "For cheapest-offer tasks with tied lowest prices, collect every matching offer at that price, including multiple distinct offers from the same shop."
+  ],
+  "patch": {
+    "reasoning": "The existing skill covers comparing matching offers and collecting ties for complete-result tasks, but does not explicitly require returning all offers tied at the lowest price. Two trajectories found multiple cheapest offers, including multiple tied offers within one shop.",
+    "edits": [
+      {
+        "op": "insert_after",
+        "target": "## Cross-Shop Coverage for Complete and Tied Results",
+        "content": "\nFor cheapest-offer tasks, retain every distinct qualifying offer tied at the lowest price across all shops—including multiple matching products from the same shop. Capture and submit the exact URL for each tied offer."
+      }
+    ]
+  },
+  "source_type": "success"
+}

@@ -1,0 +1,18 @@
+{
+  "batch_size": 4,
+  "success_patterns": [
+    "For cross-shop cheapest-offer and substitute tasks, track each shop’s candidate and price, then update the current best as comparisons proceed.",
+    "Record the chosen offer’s exact product URL and submit it only after the required search and purchase steps are complete."
+  ],
+  "patch": {
+    "reasoning": "The skill already covers cross-shop searches, exact URLs, checkout verification, and final submission. However, its explicit per-shop ledger guidance is limited to all-qualifying and tied-result tasks. The trajectories also show that a ledger of candidates and prices helps maintain an accurate current best for cheapest-offer, substitute, and end-to-end comparisons.",
+    "edits": [
+      {
+        "op": "insert_after",
+        "target": "## Cross-Shop Coverage for Complete and Tied Results",
+        "content": "\nFor cheapest-offer, substitute, and end-to-end comparisons, also keep a per-shop ledger of matching candidates, prices, and exact URLs. Update the current best as you compare shops, and purchase only after the planned shop checks are complete."
+      }
+    ]
+  },
+  "source_type": "success"
+}

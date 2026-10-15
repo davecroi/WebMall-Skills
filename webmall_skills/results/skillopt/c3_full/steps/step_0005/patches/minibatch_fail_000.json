@@ -1,0 +1,29 @@
+{
+  "batch_size": 2,
+  "failure_summary": [
+    {
+      "failure_type": "incomplete_cross_shop_coverage",
+      "count": 2,
+      "description": "Stopped after broad, category, or feature-specific searches and missed qualifying offers listed under other models or in other shops."
+    },
+    {
+      "failure_type": "unsupported_attribute_inference",
+      "count": 1,
+      "description": "Inferred GIF capability from customizable displays or related model names without verifying the feature for each offer, leading to wrong submissions and omissions."
+    }
+  ],
+  "patch": {
+    "reasoning": "The skill already calls for cross-shop and model-name searches, but these trajectories show that agents can still treat a single query or category as exhaustive. A concrete search-closure checklist reinforces coverage, while a per-offer evidence rule discourages unsupported feature assumptions.",
+    "edits": [
+      {
+        "op": "append",
+        "content": "\n\n## Search Closure for All-Offer Tasks\nFor an “all” or “every qualifying offer” task, do not treat one query, a category listing, or a no-match result as exhaustive. In each shop, search the product type and brand, then search each discovered candidate’s distinctive model or part number and relevant feature terms or synonyms. Inspect the reported result count and every remaining page. Treat related-product panels as discovery leads only: search for each promising item in the shop and record its own offer URL. Close out only after this shop-by-shop pass is complete."
+      },
+      {
+        "op": "append",
+        "content": "\n\n## Verify Each Required Attribute\nQualify each distinct offer only when its own title, specifications, or description provide evidence for every required attribute. Do not infer a feature from a customizable display, a similar product, or another variant in the same product family; for example, an LCD alone does not establish GIF playback. If evidence is unclear, inspect that offer’s product details and keep it out of the final qualifying set unless the requirement is supported."
+      }
+    ]
+  },
+  "source_type": "failure"
+}

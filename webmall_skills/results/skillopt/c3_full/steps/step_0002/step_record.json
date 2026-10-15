@@ -1,0 +1,77 @@
+{
+  "step": 2,
+  "epoch": 1,
+  "step_in_epoch": 1,
+  "timing": {
+    "rollout_s": 2313.1,
+    "reflect_s": 33.9,
+    "aggregate_s": 15.6,
+    "select_s": 6.4,
+    "update_s": 0.0,
+    "evaluate_s": 3519.1
+  },
+  "tokens": {
+    "analyst": {
+      "calls": 4,
+      "prompt_tokens": 469198,
+      "completion_tokens": 5171
+    },
+    "merge": {
+      "calls": 2,
+      "prompt_tokens": 3714,
+      "completion_tokens": 1627
+    },
+    "ranking": {
+      "calls": 1,
+      "prompt_tokens": 1676,
+      "completion_tokens": 379
+    }
+  },
+  "rollout_hard": 0.692308,
+  "rollout_soft": 0.805128,
+  "rollout_n": 13,
+  "accumulation_batches": [
+    {
+      "batch_idx": 0,
+      "batch_seed": 1044,
+      "n_envs": 13,
+      "hard": 0.6923076923076923,
+      "soft": 0.8051282051282052,
+      "n_failure_patches": 1,
+      "n_success_patches": 2
+    }
+  ],
+  "n_patches": 3,
+  "n_failure_patches": 1,
+  "n_success_patches": 2,
+  "n_edits_merged": 5,
+  "n_edits_ranked": 4,
+  "edit_budget": 4,
+  "lr_control_mode": "fixed",
+  "support_counts": [
+    4,
+    4,
+    4,
+    4
+  ],
+  "candidate_hash": "511915fd5e299c5b",
+  "candidate_skill_len": 5845,
+  "edit_apply_summary": {
+    "total": 4,
+    "applied": 4,
+    "skipped": 0,
+    "errors": 0
+  },
+  "selection_hard": 0.6666666666666666,
+  "selection_soft": 0.7871901977165136,
+  "gate_metric": "soft",
+  "candidate_gate_score": 0.7871901977165136,
+  "action": "accept_new_best",
+  "current_score": 0.7871901977165136,
+  "best_score": 0.7871901977165136,
+  "best_step": 2,
+  "current_origin": "step_0002",
+  "best_origin": "step_0002",
+  "skill_len": 5845,
+  "wall_time_s": 5888.1
+}

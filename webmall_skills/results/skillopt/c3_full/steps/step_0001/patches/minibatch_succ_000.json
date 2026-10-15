@@ -1,0 +1,23 @@
+{
+  "batch_size": 4,
+  "success_patterns": [
+    "After a timeout or interaction error, agents checked the resulting page state because the action may have succeeded despite the reported error.",
+    "Agents distinguished near-matches by checking the complete configuration, such as kit composition or CPU socket, rather than relying on a shared product family or partial match."
+  ],
+  "patch": {
+    "reasoning": "Both patterns recur across multiple trajectories and help prevent duplicate actions and incorrect offer selection. The skill already advises using visible accessibility-tree elements and verifying attributes, but does not address ambiguous action failures or explicitly call out normalizing configuration details.",
+    "edits": [
+      {
+        "op": "insert_after",
+        "target": "1. Review the current page and interaction history before acting. Use accessibility-tree bids and interact only with visible elements.",
+        "content": "\n   If an action reports a timeout or error, re-read the current URL and page state before retrying: navigation or a cart change may already have succeeded, and repeating it could cause duplicate actions."
+      },
+      {
+        "op": "insert_after",
+        "target": "2. For cross-shop searches, search each shop separately; compare titles and specifications, allowing for case, punctuation, and quote differences.",
+        "content": "\n   For multi-part requirements, normalize equivalent configuration notation (such as total kit capacity versus per-module capacity) and verify every required attribute. Reject near-matches that differ in a required configuration, socket, or specification."
+      }
+    ]
+  },
+  "source_type": "success"
+}

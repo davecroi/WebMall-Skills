@@ -1,0 +1,38 @@
+{
+  "batch_size": 4,
+  "failure_summary": [
+    {
+      "failure_type": "incomplete_offer_coverage",
+      "count": 4,
+      "description": "Agents missed qualifying offers or price ties by not systematically expanding from initial candidates to model variants and all relevant listings."
+    },
+    {
+      "failure_type": "overly_narrow_search",
+      "count": 3,
+      "description": "Specific compound queries missed relevant products with differently worded attributes or models."
+    },
+    {
+      "failure_type": "incomplete_multi_shop_checkout",
+      "count": 1,
+      "description": "The agent confirmed one order but did not complete the separate checkout required for an item in another shop’s cart."
+    }
+  ],
+  "patch": {
+    "reasoning": "The skill already calls for shop coverage, pagination, per-shop ledgers, and attribute verification, but the trajectories show those principles need practical closeout checks: search by product type as well as separate attributes, use related products as leads to individually verified offers, audit all candidates for ties, and finish every shop’s checkout before final submission.",
+    "edits": [
+      {
+        "insert_after": "3. Shorten unsuccessful multiword queries to a keyword or synonym. Do not paste full product titles: drop curly quotes, dashes, degree signs and similar characters, and search with a few distinctive keywords.",
+        "content": "\n4. For attribute-heavy searches, do not rely on one compound query containing every requirement. Search the product type or relevant category, then search distinctive brands, model families, and attribute terms separately; inspect results for equivalent wording and values that differ from the query. Use category listings as an additional discovery route when available."
+      },
+      {
+        "insert_after": "For tasks asking for all qualifying offers or every offer tied at a maximum, keep a per-shop ledger of candidates, specifications, and exact offer URLs. After identifying a plausible product, search its distinctive model name or part number in each shop as well as using the general product/category query; equivalent models may have separate shop offers even when a generic query misses them. Count each shop’s relevant results and inspect its remaining pages before concluding that no other qualifying offer exists.",
+        "content": "\nTreat relevant related-product links as discovery leads, not as search-result counts: open plausible candidates and verify the requirements on that offer itself. Before submitting, review the ledger for qualifying variants and every offer tied at the best price; do not submit only the first qualifying model or only one member of a tie."
+      },
+      {
+        "insert_after": "At `<shop>/checkout/`, fill billing and card fields by label. Check default Country / Region and State / County against the task address; change mismatches using their inner search fields and matching options. Complete checkout with **Place order**, then verify that an order-received confirmation appears before proceeding to final submission.",
+        "content": "\nIf requested items are in different shops, each shop has its own cart and checkout. Complete and verify an order for every shop containing a requested item; do not treat confirmation of one shop’s order as completion of the whole task. Navigate to the solution page and submit only after all required orders are confirmed."
+      }
+    ]
+  },
+  "source_type": "failure"
+}

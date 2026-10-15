@@ -1,0 +1,34 @@
+{
+  "batch_size": 1,
+  "failure_summary": [
+    {
+      "failure_type": "coverage",
+      "count": 1,
+      "description": "Stopped after verifying a small subset of candidates, missing qualifying offers across shops and among related product leads."
+    },
+    {
+      "failure_type": "qualification",
+      "count": 1,
+      "description": "Appeared to require an explicit mention of GIFs, overlooking plausible display-capable models whose descriptions used related display terminology."
+    },
+    {
+      "failure_type": "result_integrity",
+      "count": 1,
+      "description": "Submitted a URL for a different model than the one described in its notes, indicating the offer-to-URL mapping was not rechecked."
+    }
+  ],
+  "patch": {
+    "reasoning": "The skill already calls for cross-shop coverage and exact URL copying. These additions make candidate follow-up and feature interpretation more systematic, and require a final check that each submitted URL matches its verified offer.",
+    "edits": [
+      {
+        "op": "append",
+        "content": "\n## Verify Display-Capability Candidates\n\nFor attribute-based all-offers tasks, treat relevant products in related-product sections as leads to investigate, not as confirmed search results or reasons to stop searching. Open plausible candidates and assess the requested capability using product-specific descriptions and equivalent terminology; do not require an exact keyword match when the description or model specifications establish the same capability. Keep a per-shop list of candidates still to verify, and finish checking relevant candidates and result pages before concluding the search."
+      },
+      {
+        "op": "append",
+        "content": "\n## Final Offer-to-URL Check\n\nBefore submission, verify each recorded offer against its own product page: confirm the retailer, product title, requested attributes, and exact current URL. Keep each URL paired with that verified offer, and do not infer a URL from a similar model or carry one forward after navigating to a different product."
+      }
+    ]
+  },
+  "source_type": "failure"
+}

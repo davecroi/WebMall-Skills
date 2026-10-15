@@ -1,0 +1,17 @@
+{
+  "batch_size": 4,
+  "success_patterns": [
+    "For cheapest-offer tasks, agents compared qualifying prices across shops and returned every offer tied at the minimum rather than selecting just one."
+  ],
+  "patch": {
+    "reasoning": "The skill explains how to compare cheapest offers but does not explicitly say to preserve ties. Two trajectories successfully returned all offers tied for the lowest price. Clarifying this helps avoid incomplete submissions, including tasks comparing prices by variant or capacity.",
+    "edits": [
+      {
+        "op": "insert_after",
+        "target": "6. For cheapest searches, use ascending price sorting on E-Store Athletes, CamelCases, and Hardware Cafe. Compare TechTalk results yourself; its sorting controls do not offer price sorting.",
+        "content": "\n   When the task requests the cheapest offer, return every qualifying offer tied at the lowest price. If comparing separate variants or capacities, determine and include all lowest-price ties within each group."
+      }
+    ]
+  },
+  "source_type": "success"
+}

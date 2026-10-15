@@ -1,0 +1,29 @@
+{
+  "batch_size": 4,
+  "failure_summary": [
+    {
+      "failure_type": "incomplete_offer_enumeration",
+      "count": 4,
+      "description": "Agents missed qualifying offers or ties by relying on narrow queries or not checking equivalent product models across shops."
+    },
+    {
+      "failure_type": "incomplete_task_execution",
+      "count": 2,
+      "description": "Agents used their trajectories searching and never reached final-result submission."
+    }
+  ],
+  "patch": {
+    "reasoning": "The skill already directs agents to search all shops, inspect pagination, and submit results. These edits make two remaining gaps explicit: model-by-model cross-shop verification for complete or tied results, and a bounded search plan that preserves time to submit.",
+    "edits": [
+      {
+        "op": "append",
+        "content": "\n## Cross-Shop Coverage for Complete and Tied Results\n\nFor tasks asking for all qualifying offers or every offer tied at a maximum, keep a per-shop ledger of candidates, specifications, and exact offer URLs. After identifying a plausible product, search its distinctive model name or part number in each shop as well as using the general product/category query; equivalent models may have separate shop offers even when a generic query misses them. Count each shop’s relevant results and inspect its remaining pages before concluding that no other qualifying offer exists."
+      },
+      {
+        "op": "append",
+        "content": "\n## Bound the Search Before Closeout\n\nPlan a focused search pass for each shop and avoid repeating queries or navigation that produced no new evidence. Once every shop has been checked and the relevant result pages or categories have been covered, switch to recording exact URLs and submitting the result; do not spend the remaining interaction budget on optional searches while leaving the required submission unfinished."
+      }
+    ]
+  },
+  "source_type": "failure"
+}

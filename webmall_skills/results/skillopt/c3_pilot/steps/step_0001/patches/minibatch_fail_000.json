@@ -1,0 +1,25 @@
+{
+  "batch_size": 2,
+  "failure_summary": [
+    {
+      "failure_type": "incomplete_search_coverage",
+      "count": 2,
+      "description": "Both agents stopped with a requested qualifying offer missing after relying on narrow or noisy searches rather than exhaustively checking plausible candidates across relevant query variants and result pages."
+    },
+    {
+      "failure_type": "incomplete_multi_item_workflow",
+      "count": 1,
+      "description": "One agent completed checkout for only one of two requested products and ended before adding and purchasing the other."
+    }
+  ],
+  "patch": {
+    "reasoning": "The skill already advises pagination and cross-shop searches, but the trajectories show those instructions need a concrete completeness check: alternate queries and categories can surface differently named qualifying products, and finding one low-priced candidate is not proof it is the cheapest. A separate per-item completion gate helps prevent abandoning a multi-product purchase after completing only one checkout.",
+    "edits": [
+      {
+        "op": "append",
+        "content": "\n\n## Completeness Checks\n\n- For attribute-based or vague searches, do not rely on one exact query. Search the product category and use relevant attribute synonyms, model terms, or specification values; validate candidate products using their titles and descriptions. Search results may include noisy matches or omit products whose wording differs from the query.\n- Before declaring a cheapest offer, reconcile the result count and relevant pages for each shop and compare every plausible qualifying candidate found. A low-priced candidate is not necessarily the lowest qualifying offer.\n- For tasks requesting multiple products, track each requested product separately through offer selection, cart addition, and checkout. Do not navigate to the solution page until every requested purchase is complete; then verify that the final submission includes every required offer URL."
+      }
+    ]
+  },
+  "source_type": "failure"
+}

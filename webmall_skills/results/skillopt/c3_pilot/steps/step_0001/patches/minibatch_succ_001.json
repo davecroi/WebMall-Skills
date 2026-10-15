@@ -1,0 +1,17 @@
+{
+  "batch_size": 4,
+  "success_patterns": [
+    "Treat matching products on different shop domains as separate offers, even when their product slugs are identical; submit each shop's exact URL."
+  ],
+  "patch": {
+    "reasoning": "Two search trajectories found the same product on multiple shops with identical product paths but distinct domains. Making clear that the domain identifies a separate offer helps avoid omitting valid results.",
+    "edits": [
+      {
+        "op": "replace",
+        "target": "7. Copy submission URLs exactly from product pages; their paths follow `/product/<slug>/`.",
+        "content": "7. Copy submission URLs exactly from product pages; their paths follow `/product/<slug>/`. Treat matching products on different shop domains as separate offers, even when their product slugs are identical; include each shop's exact URL."
+      }
+    ]
+  },
+  "source_type": "success"
+}

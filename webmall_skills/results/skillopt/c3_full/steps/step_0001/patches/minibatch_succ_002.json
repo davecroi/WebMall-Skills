@@ -1,0 +1,18 @@
+{
+  "batch_size": 2,
+  "success_patterns": [
+    "After consequential actions, verify the resulting page, URL, or status instead of assuming a search, navigation, or cart action succeeded.",
+    "When an action fails or appears stale, use the observed page state to recover and continue rather than treating the action as completed."
+  ],
+  "patch": {
+    "reasoning": "The trajectories show that confirming action outcomes helps catch incomplete searches and cart updates, and supports recovery when a click times out or page state differs from expectations. The skill advises reviewing the page and history, but does not explicitly require verifying each consequential action.",
+    "edits": [
+      {
+        "op": "insert_after",
+        "target": "1. Review the current page and interaction history before acting. Use accessibility-tree bids and interact only with visible elements.",
+        "content": "After consequential actions, inspect the resulting URL, page content, or confirmation status to verify the search, navigation, product opening, or cart update succeeded. If an action times out or the observed state does not match expectations, re-check the current page and recover from that state before proceeding."
+      }
+    ]
+  },
+  "source_type": "success"
+}

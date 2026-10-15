@@ -1,0 +1,29 @@
+{
+  "batch_size": 1,
+  "failure_summary": [
+    {
+      "failure_type": "attribute_misinterpretation",
+      "count": 1,
+      "description": "Counted RGB-header support for attaching LED strips as proof that the motherboard itself has RGB lighting."
+    },
+    {
+      "failure_type": "incomplete_search_coverage",
+      "count": 1,
+      "description": "Stopped at an apparently cheap match from noisy search results without finding a cheaper qualifying motherboard in the same shop."
+    }
+  ],
+  "patch": {
+    "reasoning": "Clarify what counts as evidence for a product feature and require coverage of potentially cheaper candidates before concluding a cheapest offer. These additions address the false qualification and the missed gold offer without duplicating the existing general verification and cross-shop guidance.",
+    "edits": [
+      {
+        "insert_after": "## Verify Each Required Attribute",
+        "content": "\nFor lighting requirements, distinguish lighting built into the product from support for connecting or controlling separate lights. An RGB header, RGB Fusion compatibility, or support for RGB LED strips alone does not establish that the motherboard itself has RGB lighting; count it only if the task accepts RGB-device support or the product evidence confirms the requested lighting feature."
+      },
+      {
+        "insert_after": "For lighting requirements, distinguish lighting built into the product from support for connecting or controlling separate lights. An RGB header, RGB Fusion compatibility, or support for RGB LED strips alone does not establish that the motherboard itself has RGB lighting; count it only if the task accepts RGB-device support or the product evidence confirms the requested lighting feature.",
+        "content": "\nFor cheapest-offer searches with noisy or broad results, use the relevant product category and inspect plausible candidates that could beat the current best, including remaining result pages as needed. Do not declare a shop checked based only on the cheapest item encountered in a broad keyword search."
+      }
+    ]
+  },
+  "source_type": "failure"
+}

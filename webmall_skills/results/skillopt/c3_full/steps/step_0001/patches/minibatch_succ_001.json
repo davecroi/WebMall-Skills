@@ -1,0 +1,17 @@
+{
+  "batch_size": 4,
+  "success_patterns": [
+    "After placing an order, verify that the shop displays an order-received or confirmation page before treating checkout as complete."
+  ],
+  "patch": {
+    "reasoning": "Both checkout trajectories confirmed the resulting order page before navigating to the final submission page. The skill instructs agents to place the order but does not explicitly require checking that it succeeded.",
+    "edits": [
+      {
+        "op": "replace",
+        "target": "At `<shop>/checkout/`, fill billing and card fields by label. Check default Country / Region and State / County against the task address; change mismatches using their inner search fields and matching options. Complete checkout with **Place order**.",
+        "content": "At `<shop>/checkout/`, fill billing and card fields by label. Check default Country / Region and State / County against the task address; change mismatches using their inner search fields and matching options. Complete checkout with **Place order**, then verify that an order-received or confirmation page appears before treating the purchase as complete."
+      }
+    ]
+  },
+  "source_type": "success"
+}
