@@ -56,6 +56,12 @@ work with `agentlab.agents.generic_agent.GenericAgentArgs` agents (the `AGENT_*_
 agents); the WebMall presets such as `AGENT_4o` raise `TypeError`. To add a skill, see
 `skills/README.md`.
 
+## Task split
+
+The shared train/val/test split of the 91 tasks lives in `webmall_skills/split/` and is
+selectable in `run_webmall_study.py` as `webmall_skills_{train,val,test}`. How it was
+drawn, its v1 to v2 extension and its guarantees: `webmall_skills/split/README.md`.
+
 ## Run the tests
 
 ```bash

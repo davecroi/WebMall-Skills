@@ -21,6 +21,7 @@ from agentlab.agents.webmall_generic_agent import (
 )
 from webmall_overrides.study import WebMallStudy
 from webmall_skills.injection import skill_path, with_skill
+from webmall_skills.split import benchmarks as split_benchmarks
 from pathlib import Path
 from datetime import datetime
 from analyze_agentlab_results.aggregate_log_statistics import process_study_directory
@@ -206,6 +207,10 @@ benchmark = "webmall_specific_product_search_v1.0"
 # benchmark = "webmall_cheapest_product_search_v1.0"
 # benchmark = "webmall_action_and_transaction_v1.0"
 # benchmark = "webmall_end_to_end_v1.0"
+# benchmark = "webmall_skills_test"   # 33 held-out test tasks of the webmall_skills split
+# benchmark = "webmall_skills_val"    # 21 validation tasks (used by SkillOpt's gate)
+# benchmark = "webmall_skills_train"  # 26 training tasks
+split_benchmarks.register()
 
 # Set reproducibility_mode = True for reproducibility
 # this will "ask" agents to be deterministic. Also, it will prevent you from launching if you have
