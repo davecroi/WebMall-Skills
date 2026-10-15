@@ -14,6 +14,7 @@ from agentlab.agents.generic_agent import AGENT_4o_VISION
 
 from agentlab.agents.most_basic_agent.most_basic_agent import MostBasicAgentArgs
 from agentlab.llm.llm_configs import CHAT_MODEL_ARGS_DICT
+from agentlab.llm.chat_api import OpenAIModelArgs
 
 from agentlab.experiments.launch_exp import run_experiments
 
@@ -115,6 +116,18 @@ AGENT_41_AX_M = GenericAgentArgs(
 
 AGENT_CLAUDE_AX_M = GenericAgentArgs(
     chat_model_args=CHAT_MODEL_ARGS_DICT["anthropic/claude-sonnet-4-20250514"],
+    flags=FLAGS_AX_M,
+)
+
+AGENT_GPT6_LUNA_AX_M = GenericAgentArgs(
+    chat_model_args=OpenAIModelArgs(
+        model_name="gpt-6-luna",
+        max_total_tokens=1_050_000,
+        max_input_tokens=922_000,
+        max_new_tokens=128_000,
+        temperature=1,  # gpt-6-luna supports temperature of 1 only
+        vision_support=True,
+    ),
     flags=FLAGS_AX_M,
 )
 
