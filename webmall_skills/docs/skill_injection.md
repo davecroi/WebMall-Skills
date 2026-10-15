@@ -36,8 +36,7 @@ agent_args = [with_skill(a, skill_path(skill)) for a in agent_args]
 
 `webmall_skills/skills/base/SKILL.md` is the frozen base skill (condition "base skill" and seed
 for self-improvement). Its full provenance is in `webmall_skills/skills/base/construction/`;
-the method is specified in
-`docs/superpowers/specs/2026-10-01-webmall-base-skill-design.md`. Do not edit it
+the method is described in `webmall_skills/skill_construction/README.md`. Do not edit it
 after benchmark runs have started; changes belong to the self-improvement phase.
 
 ## What `injection.py` does

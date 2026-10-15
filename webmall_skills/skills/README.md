@@ -33,16 +33,13 @@ belong to the self-improved skill variants. It was built with the scripts in
 | `construction/evidence/` | Raw exploration output: one AX-tree file per shop and scenario (`<shop>__<scenario>[__<term>].txt`) plus `summary.json`. **Audit only** — contains catalogue content and was never given to the drafting model. |
 | `construction/findings.md` | Behaviour-only findings from the evidence (ID, status rule/one-off, shops, probes, evidence files, why it matters). The only exploration input to the draft. |
 | `construction/draft_prompt.md` | The fixed drafting prompt. |
-| `construction/draft_request.json` | Exact API request sent to `gpt-6.1-sol`. |
-| `construction/draft_response.json` | Raw API response. |
 | `construction/draft_SKILL.md` | Raw draft, unedited, including a `---TRACE---` section mapping each instruction to a source section or finding ID. |
 | `construction/skill_word_overlap.txt` | Words of `SKILL.md` that also occur in task texts, for manual sign-off. |
 | `construction/review_checklist.md` | Human review checklist with automated results (contamination, word/token count, render check). |
 | `construction/NOTES.md` | Method notes for the thesis appendix: scope of the contamination check, model parameter probe, disclosures, environment versions. |
 
 **Provenance chain:** `sources.md` + `findings.md` (← `evidence/` ← `probe_terms.txt`)
-→ `draft_prompt.md` → `draft_request.json` → `draft_response.json` →
-`draft_SKILL.md` → (trace stripped, human review) → `SKILL.md`.
+→ `draft_prompt.md` → (`gpt-6.1-sol`) → `draft_SKILL.md` → (trace stripped, human review) → `SKILL.md`.
 The single human edit after the LLM draft is documented in `base/construction/NOTES.md` /
 `review_checklist.md` (thesis repo commit `8f40746`).
 
