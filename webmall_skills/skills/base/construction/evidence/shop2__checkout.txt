@@ -1,0 +1,338 @@
+url: http://localhost:8082/checkout/
+note: checkout form, NOT submitted
+last_action_error: 
+
+RootWebArea 'Checkout – TechTalk', focused
+	[131] link 'Skip to content', clickable
+	[132] banner '', visible
+		[138] list '', visible
+			[139] listitem '', visible
+				[140] link 'All Products', clickable, visible
+			[141] listitem '', visible
+				[142] link 'Cart', clickable, visible
+			[143] listitem '', visible
+				[144] link 'Checkout', clickable, visible
+			[145] listitem '', visible
+				[146] link 'Landing', clickable, visible
+			[147] listitem '', visible
+				[148] link 'My account', clickable, visible
+			[149] listitem '', visible
+				[150] link 'Sale', clickable, visible
+		[156] paragraph '', visible
+			[157] link 'TechTalk', clickable, visible
+		[162] button 'search form toggle', clickable, visible, expanded=False
+			[163] image 'Search Icon', visible
+		[193] navigation '', visible
+			[196] list '', visible
+				[197] listitem '', visible
+					[198] link 'Main Product Categories', clickable, visible
+						[199] image '', visible
+			[292] Section '', visible
+				[294] textbox 'Search products...', clickable, visible
+				[342] button '', clickable, visible
+			[347] link 'My Account', clickable, visible
+				[348] image '', visible
+			[353] link '1 €391.29', clickable, visible
+				[354] image '', visible
+				StaticText '1'
+				StaticText '€391.29'
+	[364] article ''
+		[366] heading 'Checkout', visible
+		[370] alert '', visible, live='assertive', atomic, relevant='additions text', focused
+			StaticText '\ue015'
+			StaticText '“17.3inch Traditional Laptop Computer,with High Performance Quad Core-12th Alder Lake N97 Laptop,Spacious Storage with 16GB RAM 512GB ROM,Long Lasting 6000mAh Battery-Silver” has been added to your cart.'
+			[371] link 'Continue shopping', clickable, visible
+		StaticText 'Have a coupon?'
+		[374] button 'Enter your coupon code', clickable, visible, expanded=False, controls='woocommerce-checkout-form-coupon'
+			StaticText 'Click here to enter your code'
+		[383] form 'Checkout', clickable
+			[403] heading 'Billing details', visible
+			[405] paragraph '', visible
+				[406] LabelText '', clickable, visible
+					StaticText 'First name'
+				[409] textbox 'First name', clickable, visible, required
+			[410] paragraph '', visible
+				[411] LabelText '', clickable, visible
+					StaticText 'Last name'
+				[414] textbox 'Last name', clickable, visible, required
+			[415] paragraph '', visible
+				[416] LabelText '', clickable, visible
+					StaticText 'Country / Region'
+				[672] combobox 'Country / Region' value='Germany', clickable, visible, hasPopup='menu', required, expanded=False
+					[673] textbox 'Germany' value='Germany', visible, required
+			[678] paragraph ''
+				[679] LabelText '', clickable
+					StaticText 'Street address'
+					StaticText ''
+				[682] textbox 'Street address', clickable, required
+			[683] paragraph ''
+				[684] LabelText '', clickable
+					StaticText 'Apartment, suite, unit, etc.'
+					StaticText ''
+					StaticText '(optional)'
+				[687] textbox 'Apartment, suite, unit, etc.\xa0(optional)', clickable
+			[688] paragraph ''
+				[689] LabelText '', clickable
+					StaticText 'Town / City'
+					StaticText ''
+				[692] textbox 'Town / City', clickable, required
+			[693] paragraph ''
+				[694] LabelText '', clickable
+					StaticText 'State / County'
+					StaticText ''
+					StaticText '(optional)'
+				[717] combobox 'State / County' value='Baden-Württemberg', clickable, hasPopup='menu', expanded=False
+					[718] textbox 'Baden-Württemberg' value='Baden-Württemberg'
+			[722] paragraph ''
+				[723] LabelText '', clickable
+					StaticText 'Postcode / ZIP'
+					StaticText ''
+				[726] textbox 'Postcode / ZIP', clickable, required
+			[727] paragraph ''
+				[728] LabelText '', clickable
+					StaticText 'Phone'
+					StaticText '(optional)'
+				[731] textbox 'Phone\xa0(optional)', clickable
+			[732] paragraph ''
+				[733] LabelText '', clickable
+					StaticText 'Email address'
+				[736] textbox 'Email address', clickable, required
+			[740] heading 'Additional information', visible
+			[742] paragraph '', visible
+				[743] LabelText '', clickable, visible
+					StaticText 'Order notes'
+					StaticText '(optional)'
+				[746] textbox 'Order notes\xa0(optional)', clickable, visible
+			[747] heading 'Your order'
+			[749] table ''
+				[750] rowgroup ''
+					[751] row ''
+						[752] columnheader 'Product'
+						[753] columnheader 'Subtotal'
+				[754] rowgroup ''
+					[755] row ''
+						[756] gridcell '17.3inch Traditional Laptop Computer,with High Performance Quad Core-12th Alder Lake N97 Laptop,Spacious Storage with 16GB RAM 512GB ROM,Long Lasting 6000mAh Battery-Silver\xa0 ×\xa01'
+							[757] strong ''
+								StaticText '×\xa01'
+						[758] gridcell '€391.29'
+							StaticText '€'
+							StaticText '391.29'
+				[762] rowgroup ''
+					[763] row ''
+						[764] rowheader 'Subtotal'
+						[765] gridcell '€391.29'
+							StaticText '€'
+							StaticText '391.29'
+					[769] row ''
+						[770] rowheader 'Total'
+						[771] gridcell '€391.29'
+							[772] strong ''
+								StaticText '€'
+								StaticText '391.29'
+			[777] list ''
+				[778] listitem ''
+					[780] LabelText '', clickable
+					[782] group ''
+						[783] paragraph ''
+							[784] LabelText '', clickable
+								StaticText 'Cardholder Name'
+								StaticText '*'
+							[786] textbox 'Cardholder Name *', clickable
+						[787] paragraph ''
+							[788] LabelText '', clickable
+								StaticText 'Card Number'
+								StaticText '*'
+							[790] textbox 'Card Number *', clickable
+						[791] paragraph ''
+							[792] LabelText '', clickable
+								StaticText 'Expiry (MM/YY)'
+								StaticText '*'
+							[794] textbox 'Expiry (MM/YY) *', clickable
+						[795] paragraph ''
+							[796] LabelText '', clickable
+								StaticText 'CVC'
+								StaticText '*'
+							[798] textbox 'CVC *', clickable
+			[804] paragraph ''
+				StaticText 'Your personal data will be used to process your order, support your experience throughout this website, and for other purposes described in our'
+				[805] link 'privacy policy', clickable
+				StaticText '.'
+			[806] button 'Place order', clickable
+		[809] paragraph ''
+		[810] paragraph ''
+		[811] paragraph ''
+	[812] contentinfo ''
+		[818] Section ''
+			[819] paragraph ''
+				StaticText 'Categories'
+		[820] Section ''
+			[822] list ''
+				[823] listitem ''
+					[824] link 'Notebooks & Stationery', clickable
+						StaticText 'Notebooks & Stationery'
+				[826] listitem ''
+					[827] link 'Peripherals', clickable
+						StaticText 'Peripherals'
+					[829] list ''
+						[830] listitem ''
+							[831] link 'Mouse Pads', clickable
+								StaticText 'Mouse Pads'
+				[833] listitem ''
+					[834] link 'Watch Straps', clickable
+						StaticText 'Watch Straps'
+				[836] listitem ''
+					[837] link 'Audio', clickable
+						StaticText 'Audio'
+					[839] list ''
+						[840] listitem ''
+							[841] link 'Headphones', clickable
+								StaticText 'Headphones'
+							[843] list ''
+								[844] listitem ''
+									[845] link 'Over-Ear', clickable
+										StaticText 'Over-Ear'
+				[847] listitem ''
+					[848] link 'Gaming', clickable
+						StaticText 'Gaming'
+					[850] list ''
+						[851] listitem ''
+							[852] link 'Microsoft Xbox', clickable
+								StaticText 'Microsoft Xbox'
+							[854] list ''
+								[855] listitem ''
+									[856] link 'Xbox Accessories', clickable
+										StaticText 'Xbox Accessories'
+				[858] listitem ''
+					[859] link 'Hardware', clickable
+						StaticText 'Hardware'
+					[861] list ''
+						[862] listitem ''
+							[863] link 'Cables', clickable
+								StaticText 'Cables'
+							[865] list ''
+								[866] listitem ''
+									[867] link 'HDMI', clickable
+										StaticText 'HDMI'
+								[869] listitem ''
+									[870] link 'USB-C to Lightning', clickable
+										StaticText 'USB-C to Lightning'
+						[872] listitem ''
+							[873] link 'Cleaning Supplies', clickable
+								StaticText 'Cleaning Supplies'
+						[875] listitem ''
+							[876] link 'Networking Equipment', clickable
+								StaticText 'Networking Equipment'
+						[878] listitem ''
+							[879] link 'PC Components', clickable
+								StaticText 'PC Components'
+							[881] list ''
+								[882] listitem ''
+									[883] link 'Adapters', clickable
+										StaticText 'Adapters'
+								[885] listitem ''
+									[886] link 'Barebone PCs', clickable
+										StaticText 'Barebone PCs'
+								[888] listitem ''
+									[889] link 'Cables', clickable
+										StaticText 'Cables'
+								[891] listitem ''
+									[892] link 'Capture Cards', clickable
+										StaticText 'Capture Cards'
+								[894] listitem ''
+									[895] link 'Cases', clickable
+										StaticText 'Cases'
+								[897] listitem ''
+									[898] link 'Cooling', clickable
+										StaticText 'Cooling'
+								[900] listitem ''
+									[901] link 'External Hard Drives', clickable
+										StaticText 'External Hard Drives'
+								[903] listitem ''
+									[904] link 'Graphics Cards', clickable
+										StaticText 'Graphics Cards'
+								[906] listitem ''
+									[907] link 'Keyboards', clickable
+										StaticText 'Keyboards'
+								[909] listitem ''
+									[910] link 'Memory', clickable
+										StaticText 'Memory'
+								[912] listitem ''
+									[913] link 'Mini PCs', clickable
+										StaticText 'Mini PCs'
+								[915] listitem ''
+									[916] link 'Monitors', clickable
+										StaticText 'Monitors'
+								[918] listitem ''
+									[919] link 'Motherboards', clickable
+										StaticText 'Motherboards'
+								[921] listitem ''
+									[922] link 'Networking Equipment', clickable
+										StaticText 'Networking Equipment'
+								[924] listitem ''
+									[925] link 'Power Supplies', clickable
+										StaticText 'Power Supplies'
+								[927] listitem ''
+									[928] link 'Processors', clickable
+										StaticText 'Processors'
+								[930] listitem ''
+									[931] link 'CPU', clickable
+										StaticText 'CPU'
+								[933] listitem ''
+									[934] link 'SSD', clickable
+										StaticText 'SSD'
+				[936] listitem ''
+					[937] link 'Photography', clickable
+						StaticText 'Photography'
+					[939] list ''
+						[940] listitem ''
+							[941] link 'Canon', clickable
+								StaticText 'Canon'
+							[943] list ''
+								[944] listitem ''
+									[945] link 'Cameras', clickable
+										StaticText 'Cameras'
+				[947] listitem ''
+					[948] link 'Smartphones', clickable
+						StaticText 'Smartphones'
+					[950] list ''
+						[951] listitem ''
+							[952] link 'A Series', clickable
+								StaticText 'A Series'
+						[954] listitem ''
+							[955] link 'Apple Watches', clickable
+								StaticText 'Apple Watches'
+						[957] listitem ''
+							[958] link 'S Series', clickable
+								StaticText 'S Series'
+						[960] listitem ''
+							[961] link 'Smartwatch Equipment', clickable
+								StaticText 'Smartwatch Equipment'
+				[963] listitem ''
+					[964] link 'Tablets', clickable
+						StaticText 'Tablets'
+					[966] list ''
+						[967] listitem ''
+							[968] link 'A Series', clickable
+								StaticText 'A Series'
+		[971] Section ''
+			[972] paragraph ''
+				StaticText 'Contact'
+		[973] Section ''
+			[974] paragraph ''
+				[975] strong ''
+					StaticText 'TechTalk'
+				StaticText '1450 Innovation Drive, Suite 200'
+				StaticText 'San Mateo, CA 94401'
+				StaticText 'United States'
+		[979] Section ''
+			[980] paragraph ''
+				[981] image '📞'
+				StaticText '+1 (650) 555-0199'
+				[983] image '✉️'
+				StaticText ''
+				StaticText 'support@techtalk.com'
+		[989] link 'A theme by GradientThemes - A theme by Gradient Themes ©', clickable
+	[992] image '', visible
+	[1030] generic, live='assertive', atomic, relevant='additions text'
+	[1031] generic, live='polite', atomic, relevant='additions text'
+	[1032] status '', live='polite', atomic, relevant='additions text'

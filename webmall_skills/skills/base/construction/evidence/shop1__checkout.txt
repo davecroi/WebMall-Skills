@@ -1,0 +1,188 @@
+url: http://localhost:8081/checkout/
+note: checkout form, NOT submitted
+last_action_error: 
+
+RootWebArea 'Checkout – E-Store Athletes', focused
+	[127] banner '', visible
+		[128] link 'Skip to content Skip to content', clickable
+			StaticText 'Skip to content'
+		[177] paragraph '', visible
+			[178] link 'E-Store Athletes', clickable, visible
+		[180] search '', visible
+			[181] LabelText '', clickable
+				StaticText 'Search for:'
+			[182] searchbox 'Search for:', clickable, visible
+			[183] button 'Search', clickable, visible
+		[187] link '\uf004', clickable, visible
+			StaticText '\uf004'
+		[190] link '\uf07a Shopping Cart', clickable, visible
+			StaticText '\uf07a'
+			StaticText 'Shopping Cart'
+		[193] link '\uf007', clickable, visible
+			StaticText '\uf007'
+		[200] button '\uf03a Category', clickable, visible
+			StaticText '\uf03a'
+		[327] navigation 'Top Menu', visible
+			[329] list '', visible
+				[330] listitem '', visible
+					[331] link 'About', clickable, visible
+				[332] listitem '', visible
+					[333] link 'Contact', clickable, visible
+		StaticText '\uf2a0'
+		StaticText 'Support :'
+		[344] link '+15125550277', clickable, visible
+			StaticText '+15125550277'
+		StaticText 'Support :'
+		[348] link 'support@estoreathletes.com', clickable, visible
+			StaticText 'support@estoreathletes.com'
+	[350] main ''
+		[353] link 'E-Store Athletes', clickable, visible
+		StaticText 'Checkout'
+		[356] heading 'Checkout', visible
+		StaticText 'Have a coupon?'
+		[361] button 'Enter your coupon code', clickable, visible, expanded=False, controls='woocommerce-checkout-form-coupon'
+			StaticText 'Click here to enter your code'
+		[370] form 'Checkout', clickable
+			[390] heading 'Billing details', visible
+			[392] paragraph '', visible
+				[393] LabelText '', clickable, visible
+					StaticText 'First name'
+				[396] textbox 'First name', clickable, visible, required
+			[397] paragraph '', visible
+				[398] LabelText '', clickable, visible
+					StaticText 'Last name'
+				[401] textbox 'Last name', clickable, visible, required
+			[402] paragraph '', visible
+				[403] LabelText '', clickable, visible
+					StaticText 'Country / Region'
+				[659] combobox 'Country / Region' value='Germany', clickable, visible, hasPopup='menu', required, expanded=False
+					[660] textbox 'Germany' value='Germany', visible, required
+			[665] paragraph '', visible
+				[666] LabelText '', clickable, visible
+					StaticText 'Street address'
+				[669] textbox 'Street address', clickable, visible, required
+			[670] paragraph '', visible
+				[671] LabelText '', clickable
+					StaticText 'Apartment, suite, unit, etc.'
+					StaticText '(optional)'
+				[674] textbox 'Apartment, suite, unit, etc.\xa0 (optional)', clickable, visible
+			[675] paragraph ''
+				[676] LabelText '', clickable, visible
+					StaticText 'Town / City'
+				[679] textbox 'Town / City', clickable, required
+			[680] paragraph ''
+				[681] LabelText '', clickable
+					StaticText 'State / County'
+					StaticText '(optional)'
+				[704] combobox 'State / County' value='Baden-Württemberg', clickable, hasPopup='menu', expanded=False
+					[705] textbox 'Baden-Württemberg' value='Baden-Württemberg'
+			[709] paragraph ''
+				[710] LabelText '', clickable
+					StaticText 'Postcode / ZIP'
+				[713] textbox 'Postcode / ZIP', clickable, required
+			[714] paragraph ''
+				[715] LabelText '', clickable
+					StaticText 'Phone'
+					StaticText '(optional)'
+				[718] textbox 'Phone\xa0(optional)', clickable
+			[719] paragraph ''
+				[720] LabelText '', clickable
+					StaticText 'Email address'
+				[723] textbox 'Email address', clickable, required
+			[727] heading 'Additional information', visible
+			[729] paragraph '', visible
+				[730] LabelText '', clickable, visible
+					StaticText 'Order notes'
+					StaticText '(optional)'
+				[733] textbox 'Order notes\xa0(optional)', clickable, visible
+			[734] heading 'Your order'
+			[736] table ''
+				[737] rowgroup ''
+					[738] row ''
+						[739] columnheader 'Product'
+						[740] columnheader 'Subtotal'
+				[741] rowgroup ''
+					[742] row ''
+						[743] gridcell "4K Digital Camera,48MP Autofocus Video Camera with 32G Card, 2.7'' 180°Flip Screen Vlogging Camera for Youtube 16X Digital Zoom with Flash, Rechargeable Compact Camera for Teens Beginners Adults\xa0 ×\xa01"
+							[744] strong ''
+								StaticText '×\xa01'
+						[745] gridcell '124,48\xa0€'
+							StaticText '124,48'
+							StaticText '€'
+				[749] rowgroup ''
+					[750] row ''
+						[751] rowheader 'Subtotal'
+						[752] gridcell '124,48\xa0€'
+							StaticText '124,48'
+							StaticText '€'
+					[756] row ''
+						[757] rowheader 'Total'
+						[758] gridcell '124,48\xa0€'
+							[759] strong ''
+								StaticText '124,48'
+								StaticText '€'
+			[764] list ''
+				[765] listitem ''
+					[767] LabelText '', clickable
+					[769] group ''
+						[770] paragraph ''
+							[771] LabelText '', clickable
+								StaticText 'Cardholder Name'
+								StaticText '*'
+							[773] textbox 'Cardholder Name *', clickable
+						[774] paragraph ''
+							[775] LabelText '', clickable
+								StaticText 'Card Number'
+								StaticText '*'
+							[777] textbox 'Card Number *', clickable
+						[778] paragraph ''
+							[779] LabelText '', clickable
+								StaticText 'Expiry (MM/YY)'
+								StaticText '*'
+							[781] textbox 'Expiry (MM/YY) *', clickable
+						[782] paragraph ''
+							[783] LabelText '', clickable
+								StaticText 'CVC'
+								StaticText '*'
+							[785] textbox 'CVC *', clickable
+			[791] paragraph ''
+				StaticText 'Your personal data will be used to process your order, support your experience throughout this website, and for other purposes described in our'
+				[792] link 'privacy policy', clickable
+				StaticText '.'
+			[793] button 'Place order', clickable
+		[796] paragraph ''
+	[799] contentinfo ''
+		[801] complementary 'Footer'
+			[806] heading 'Contact'
+			[808] paragraph ''
+				[809] strong ''
+					StaticText 'E-Store Athletes'
+				StaticText '2875 Penny Lane, Suite 110'
+				StaticText 'Austin, TX 78704'
+				StaticText 'United States'
+			[814] paragraph ''
+				StaticText '+1 (512) 555-0277'
+				[816] link 'support@estoreathletes.com', clickable
+			[818] complementary 'secondfooter'
+				[819] heading 'Archives'
+				[820] list ''
+					[821] listitem ''
+						[822] link 'February 2025', clickable
+			[824] complementary 'thirdfooter'
+				[825] heading 'Meta'
+				[826] list ''
+					[827] listitem ''
+						[828] link 'Log in', clickable
+			[830] complementary 'forthfooter'
+				[831] heading 'Categories'
+				[832] list ''
+					[833] listitem ''
+						[834] link 'General', clickable
+					[835] listitem ''
+						[836] link 'Uncategorized', clickable
+		[840] paragraph ''
+			[841] link 'Electronics Retailer WordPress Theme', clickable
+			StaticText 'By VWThemes'
+		[842] link 'Scroll Up', clickable
+			StaticText 'Scroll Up'
+	[901] status '', live='polite', atomic, relevant='additions text'
