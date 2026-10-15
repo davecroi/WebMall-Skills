@@ -23,7 +23,7 @@ webmall_skills/
   tests/                         # core tests: injection, paths, contamination
   split/                         # shared train/val/test split
     README.md                    # how the split was drawn, v1 -> v2, file format, guarantees
-    make_split.py                # draws / extends the split
+    make_split.py                # rebuilds v1 (`--v1`) or the fixed v2
     benchmarks.py                # webmall_skills_{train,val,test} for run_webmall_study.py
     split_v2/                    # split_manifest.json, train|val|test/items.json
     tests/
@@ -122,4 +122,4 @@ Commands, outputs and how to add a condition: [`skillopt_webmall/README.md`](ski
 - **New skill:** add `skills/<name>/SKILL.md`; it is immediately selectable as `skill = "<name>"` (see `skills/README.md`).
 - **New SkillOpt condition:** add a config next to `skillopt_webmall/configs/c3.yaml` and run it through `skillopt_webmall/train.py`; see `skillopt_webmall/README.md`.
 - **Reworking the base-skill construction:** `skill_construction/` is replaceable. Only `skills/base/SKILL.md` is consumed elsewhere, and the shared leakage blocklist lives in `contamination.py`, so changing or deleting `skill_construction/` does not break C3.
-- **Adding a split:** create a new folder under `split/` (e.g. `split_v3/`) with a manifest that `extends` the previous one, and register it in `split/benchmarks.py`. Never re-draw the test split.
+- **Adding a split:** add `split/split_v3/` with a manifest whose `extends` records the sha256 of the previous manifest. Generate it by calling `extend_split` from new code (`make_split.py` only writes v1 or v2). Add `webmall_skills_v3_*` entries to `SPLIT_BENCHMARKS` in `split/benchmarks.py` with `split_dir` pointing at the new folder, and point `env.split_dir` in a new SkillOpt config at it. Never re-draw the test split.
