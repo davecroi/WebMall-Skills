@@ -1,0 +1,24 @@
+{
+  "reasoning": "Preserved both failure-driven edits at higher priority: the explicit cross-retailer duplicate audit and verification of the exact requested specification. Also retained the distinct success-driven guidance to treat substantive model-identifier differences as mismatches and verify redirected search candidates before recording them.",
+  "edits": [
+    {
+      "op": "append",
+      "content": "\n\n## Final Cross-Retailer Duplicate Audit\n\nBefore submitting an all-offers result, audit every confirmed qualifying model against every shop, even if that shop’s general category results appeared complete. Search the exact model name and useful model-number variants in each shop. Treat each retailer’s matching product page as a separate offer: record and submit each qualifying retailer-specific URL rather than reusing one shop’s URL or assuming identical models are a single offer. Reconcile the per-shop ledger against the final URL list before navigating to the solution page.",
+      "support_count": 3,
+      "source_type": "failure"
+    },
+    {
+      "op": "append",
+      "content": "\n\n## Verify the Exact Requested Specification\n\nFor each candidate, confirm every requirement from evidence for that specific offer. Match the specification type the task asks for (such as base, boost, or maximum clock speed), units, and strict or inclusive threshold; do not substitute a related metric or infer a value from the model family. If the listing does not establish the required attribute, investigate the product description or exclude the candidate rather than treating an unverified assumption as confirmation.",
+      "support_count": 3,
+      "source_type": "failure"
+    },
+    {
+      "op": "insert_after",
+      "target": "4. Validate search hits: matching can occur in descriptions and inside longer words, not just titles.",
+      "content": "\n   Treat generation, tier, and other model-number differences as substantive, not formatting variations. A search redirect is only a candidate: confirm the product title and requested identifiers before recording its URL or price.",
+      "support_count": 2,
+      "source_type": "success"
+    }
+  ]
+}

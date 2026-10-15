@@ -1,0 +1,26 @@
+{
+  "reasoning": "Preserved all four failure-driven edits. The success-driven category fallback overlaps with the failure guidance to use category listings when available and inspect remaining pages, so it is deduplicated rather than added separately. [optimizer-ranked: selected 2/4 edits]",
+  "edits": [
+    {
+      "op": "insert_after",
+      "target": "3. Shorten unsuccessful multiword queries to a keyword or synonym. Do not paste full product titles: drop curly quotes, dashes, degree signs and similar characters, and search with a few distinctive keywords.",
+      "content": "\nFor attribute-heavy searches, do not rely on one compound query containing every requirement. Search the product type or relevant category, then search distinctive brands, model families, and attribute terms separately; inspect results for equivalent wording and values that differ from the query. Use category listings as an additional discovery route when available. For cheapest-offer searches with noisy or broad results, inspect plausible candidates that could beat the current best, including remaining result pages as needed; do not consider a shop checked based only on the cheapest item encountered in a broad keyword search.",
+      "support_count": 2,
+      "source_type": "failure"
+    },
+    {
+      "op": "insert_after",
+      "target": "At `<shop>/checkout/`, fill billing and card fields by label. Check default Country / Region and State / County against the task address; change mismatches using their inner search fields and matching options. Complete checkout with **Place order**, then verify that an order-received confirmation appears before proceeding to final submission.",
+      "content": "\nIf requested items are in different shops, each shop has its own cart and checkout. Complete and verify an order for every shop containing a requested item; do not treat confirmation of one shop’s order as completion of the whole task. Navigate to the solution page and submit only after all required orders are confirmed.",
+      "support_count": 1,
+      "source_type": "failure"
+    }
+  ],
+  "ranking_details": {
+    "reasoning": "Edit 0 addresses broad, recurring search failures across attribute-heavy and cheapest-offer tasks. Edit 3 fills a distinct checkout gap by requiring completion and verification across multiple shops; edit 2 mostly repeats existing ledger and tie-coverage guidance, while edit 1 is narrowly scoped.",
+    "selected_indices": [
+      0,
+      3
+    ]
+  }
+}

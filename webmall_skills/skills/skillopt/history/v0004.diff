@@ -1,0 +1,23 @@
+--- v0002.md
++++ v0004.md
+@@ -41,6 +41,8 @@
+ If the task supplies a product-page URL, open it directly and verify the product title and relevant details. Use that page directly for requested cart or checkout actions; search across shops only when the task asks you to compare offers or find alternatives.
+ 3. Shorten unsuccessful multiword queries to a keyword or synonym. Do not paste full product titles: drop curly quotes, dashes, degree signs and similar characters, and search with a few distinctive keywords.
+ 4. Validate search hits: matching can occur in descriptions and inside longer words, not just titles.
++
++Treat generation, tier, and other model-number differences as substantive, not formatting variations. A search redirect is only a candidate: confirm the product title and requested identifiers before recording its URL or price.
+ 5. Read titles and their following amounts from results lists. Normalize decimal and thousands separators before comparing across shops.
+ 6. For cheapest searches, use ascending price sorting on E-Store Athletes, CamelCases, and Hardware Cafe. Compare TechTalk results yourself; its sorting controls do not offer price sorting.
+ 7. Copy submission URLs exactly from product pages; their paths follow `/product/<slug>/`.
+@@ -58,3 +60,11 @@
+ ## Bound the Search Before Closeout
+ 
+ Plan a focused search pass for each shop and avoid repeating queries or navigation that produced no new evidence. Once every shop has been checked and the relevant result pages or categories have been covered, switch to recording exact URLs and submitting the result; do not spend the remaining interaction budget on optional searches while leaving the required submission unfinished.
++
++## Final Cross-Retailer Duplicate Audit
++
++Before submitting an all-offers result, audit every confirmed qualifying model against every shop, even if that shop’s general category results appeared complete. Search the exact model name and useful model-number variants in each shop. Treat each retailer’s matching product page as a separate offer: record and submit each qualifying retailer-specific URL rather than reusing one shop’s URL or assuming identical models are a single offer. Reconcile the per-shop ledger against the final URL list before navigating to the solution page.
++
++## Verify the Exact Requested Specification
++
++For each candidate, confirm every requirement from evidence for that specific offer. Match the specification type the task asks for (such as base, boost, or maximum clock speed), units, and strict or inclusive threshold; do not substitute a related metric or infer a value from the model family. If the listing does not establish the required attribute, investigate the product description or exclude the candidate rather than treating an unverified assumption as confirmation.

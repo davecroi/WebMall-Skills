@@ -1,0 +1,40 @@
+{
+  "reasoning": "Preserved both higher-priority failure-driven edits. Added the distinct success-driven guidance on verifying consequential actions, checking every part of multi-part requirements, and confirming checkout completion; none directly conflicts with the failure edits. [optimizer-ranked: selected 4/5 edits]",
+  "edits": [
+    {
+      "op": "append",
+      "content": "\n## Search and Verification Checklist\n\nDo not treat a keyword-search result as a complete product list or as proof that a product qualifies. Track the result count, inspect all relevant pages, and search useful model-name, category, and feature synonyms when results appear incomplete. Open plausible candidates and verify both product type and each requested attribute from the product details. For cheapest tasks, compare qualifying candidates across every shop and continue checking results and ties before choosing; for “all offers” tasks, inspect all plausible variants rather than only the first matching model.",
+      "support_count": 3,
+      "source_type": "failure"
+    },
+    {
+      "op": "insert_after",
+      "target": "1. Review the current page and interaction history before acting. Use accessibility-tree bids and interact only with visible elements.",
+      "content": "After consequential actions, inspect the resulting URL, page content, or confirmation status to verify they succeeded. If an action times out or errors, re-check the current page and state before retrying: it may already have succeeded, and repeating it could cause duplicate actions.",
+      "support_count": 2,
+      "source_type": "success"
+    },
+    {
+      "op": "append",
+      "content": "\n## Task Closeout\n\nBefore finishing, check the task’s required outcomes: all requested products are selected, every required cart and checkout is completed (including separate shops when needed), and all required offer URLs are recorded exactly. Then navigate to the solution page, enter the required URL list or `Done`, and press **Submit Final Result**. Do not end after browsing, filling checkout fields, or entering a submission without submitting it.",
+      "support_count": 3,
+      "source_type": "failure"
+    },
+    {
+      "op": "insert_after",
+      "target": "2. For cross-shop searches, search each shop separately; compare titles and specifications, allowing for case, punctuation, and quote differences.",
+      "content": "\n   For multi-part requirements, normalize equivalent configuration notation (such as total kit capacity versus per-module capacity) and verify every required attribute. Reject near-matches that differ in a required configuration, socket, or specification.",
+      "support_count": 1,
+      "source_type": "success"
+    }
+  ],
+  "ranking_details": {
+    "reasoning": "Edit 0 strengthens completeness and qualification checks across search tasks; edit 2 adds broadly useful verification after actions and prevents duplicate side effects; edit 1 reinforces end-to-end completion and submission; edit 3 addresses configuration mismatches in multi-part requirements. Edit 4 is narrower and largely covered by edit 2’s confirmation guidance.",
+    "selected_indices": [
+      0,
+      2,
+      1,
+      3
+    ]
+  }
+}

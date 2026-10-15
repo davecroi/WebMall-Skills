@@ -1,0 +1,332 @@
+{
+  "seed": 42,
+  "source": "Browsergym/browsergym/webmall/src/browsergym/webmall/task_sets.json",
+  "source_sha256": "e1d7af45db32293a0c508317ec756c845c6724105189ac96eca8223db49146ce",
+  "extends": {
+    "split": "split",
+    "manifest_sha256": "339e0bea575d6e27640d5ffc94670a747a2fd334bd0f67d69d41dac11cb6e0f5",
+    "extra_per_category": {
+      "val": 1,
+      "train": 2
+    },
+    "reason": "pilot: train F1 0.94 (few failures to reflect on) and a noisy 11-task val gate; val/train enlarged from unused tasks, test unchanged"
+  },
+  "per_category_counts": {
+    "train": 1,
+    "val": 1,
+    "test": 3
+  },
+  "counts": {
+    "train": 26,
+    "val": 21,
+    "test": 33,
+    "unused": 11
+  },
+  "per_category": {
+    "WEBMALL_FIND_SPECIFIC_PRODUCT_V1": {
+      "category": "Specific_Product",
+      "train": [
+        "Webmall_Find_Specific_Product_Task8",
+        "Webmall_Find_Specific_Product_Task12",
+        "Webmall_Find_Specific_Product_Task4"
+      ],
+      "val": [
+        "Webmall_Find_Specific_Product_Task6",
+        "Webmall_Find_Specific_Product_Task7"
+      ],
+      "test": [
+        "Webmall_Find_Specific_Product_Task3",
+        "Webmall_Find_Specific_Product_Task9",
+        "Webmall_Find_Specific_Product_Task10"
+      ],
+      "added": {
+        "val": [
+          "Webmall_Find_Specific_Product_Task7"
+        ],
+        "train": [
+          "Webmall_Find_Specific_Product_Task12",
+          "Webmall_Find_Specific_Product_Task4"
+        ]
+      },
+      "unused": [
+        "Webmall_Find_Specific_Product_Task5",
+        "Webmall_Find_Specific_Product_Task1",
+        "Webmall_Find_Specific_Product_Task2",
+        "Webmall_Find_Specific_Product_Task11"
+      ]
+    },
+    "WEBMALL_FIND_CHEAPEST_OFFER_V1": {
+      "category": "Cheapest_Product",
+      "train": [
+        "Webmall_Find_Cheapest_Offer_Task6",
+        "Webmall_Find_Cheapest_Offer_Task8",
+        "Webmall_Find_Cheapest_Offer_Task2"
+      ],
+      "val": [
+        "Webmall_Find_Cheapest_Offer_Task4",
+        "Webmall_Find_Cheapest_Offer_Task7"
+      ],
+      "test": [
+        "Webmall_Find_Cheapest_Offer_Task3",
+        "Webmall_Find_Cheapest_Offer_Task9",
+        "Webmall_Find_Cheapest_Offer_Task5"
+      ],
+      "added": {
+        "val": [
+          "Webmall_Find_Cheapest_Offer_Task7"
+        ],
+        "train": [
+          "Webmall_Find_Cheapest_Offer_Task8",
+          "Webmall_Find_Cheapest_Offer_Task2"
+        ]
+      },
+      "unused": [
+        "Webmall_Find_Cheapest_Offer_Task10",
+        "Webmall_Find_Cheapest_Offer_Task1"
+      ]
+    },
+    "WEBMALL_PRODUCTS_FULFILLING_SPECIFIC_REQUIREMENTS_V1": {
+      "category": "Best_Fit_Specific",
+      "train": [
+        "Webmall_Products_Fulfilling_Specific_Requirements_Task6",
+        "Webmall_Products_Fulfilling_Specific_Requirements_Task8",
+        "Webmall_Products_Fulfilling_Specific_Requirements_Task4"
+      ],
+      "val": [
+        "Webmall_Products_Fulfilling_Specific_Requirements_Task2",
+        "Webmall_Products_Fulfilling_Specific_Requirements_Task5"
+      ],
+      "test": [
+        "Webmall_Products_Fulfilling_Specific_Requirements_Task10",
+        "Webmall_Products_Fulfilling_Specific_Requirements_Task1",
+        "Webmall_Products_Fulfilling_Specific_Requirements_Task3"
+      ],
+      "added": {
+        "val": [
+          "Webmall_Products_Fulfilling_Specific_Requirements_Task5"
+        ],
+        "train": [
+          "Webmall_Products_Fulfilling_Specific_Requirements_Task8",
+          "Webmall_Products_Fulfilling_Specific_Requirements_Task4"
+        ]
+      },
+      "unused": [
+        "Webmall_Products_Fulfilling_Specific_Requirements_Task7",
+        "Webmall_Products_Fulfilling_Specific_Requirements_Task9",
+        "Webmall_Products_Fulfilling_Specific_Requirements_Task11"
+      ]
+    },
+    "WEBMALL_PRODUCTS_SATISFYING_VAGUE_REQUIREMENTS_V1": {
+      "category": "Best_Fit_Vague",
+      "train": [
+        "Webmall_Products_Satisfying_Vague_Requirements_Task5",
+        "Webmall_Products_Satisfying_Vague_Requirements_Task3",
+        "Webmall_Products_Satisfying_Vague_Requirements_Task6"
+      ],
+      "val": [
+        "Webmall_Products_Satisfying_Vague_Requirements_Task4",
+        "Webmall_Products_Satisfying_Vague_Requirements_Task2"
+      ],
+      "test": [
+        "Webmall_Products_Satisfying_Vague_Requirements_Task1",
+        "Webmall_Products_Satisfying_Vague_Requirements_Task7",
+        "Webmall_Products_Satisfying_Vague_Requirements_Task8"
+      ],
+      "added": {
+        "val": [
+          "Webmall_Products_Satisfying_Vague_Requirements_Task2"
+        ],
+        "train": [
+          "Webmall_Products_Satisfying_Vague_Requirements_Task3",
+          "Webmall_Products_Satisfying_Vague_Requirements_Task6"
+        ]
+      },
+      "unused": []
+    },
+    "WEBMALL_CHEAPEST_OFFER_SPECIFIC_REQUIREMENTS_V1": {
+      "category": "Cheapest_Best_Fit_Specific",
+      "train": [
+        "Webmall_Cheapest_Offer_Specific_Requirements_Task4",
+        "Webmall_Cheapest_Offer_Specific_Requirements_Task10",
+        "Webmall_Cheapest_Offer_Specific_Requirements_Task6"
+      ],
+      "val": [
+        "Webmall_Cheapest_Offer_Specific_Requirements_Task9",
+        "Webmall_Cheapest_Offer_Specific_Requirements_Task3"
+      ],
+      "test": [
+        "Webmall_Cheapest_Offer_Specific_Requirements_Task1",
+        "Webmall_Cheapest_Offer_Specific_Requirements_Task8",
+        "Webmall_Cheapest_Offer_Specific_Requirements_Task5"
+      ],
+      "added": {
+        "val": [
+          "Webmall_Cheapest_Offer_Specific_Requirements_Task3"
+        ],
+        "train": [
+          "Webmall_Cheapest_Offer_Specific_Requirements_Task10",
+          "Webmall_Cheapest_Offer_Specific_Requirements_Task6"
+        ]
+      },
+      "unused": [
+        "Webmall_Cheapest_Offer_Specific_Requirements_Task2",
+        "Webmall_Cheapest_Offer_Specific_Requirements_Task7"
+      ]
+    },
+    "WEBMALL_CHEAPEST_OFFER_VAGUE_REQUIREMENTS_V1": {
+      "category": "Cheapest_Best_Fit_Vague",
+      "train": [
+        "Webmall_Cheapest_Offer_Vague_Requirements_Task3"
+      ],
+      "val": [
+        "Webmall_Cheapest_Offer_Vague_Requirements_Task2",
+        "Webmall_Cheapest_Offer_Vague_Requirements_Task5"
+      ],
+      "test": [
+        "Webmall_Cheapest_Offer_Vague_Requirements_Task6",
+        "Webmall_Cheapest_Offer_Vague_Requirements_Task4",
+        "Webmall_Cheapest_Offer_Vague_Requirements_Task1"
+      ],
+      "added": {
+        "val": [
+          "Webmall_Cheapest_Offer_Vague_Requirements_Task5"
+        ],
+        "train": []
+      },
+      "unused": []
+    },
+    "WEBMALL_ADD_TO_CART_V1": {
+      "category": "Add_To_Cart",
+      "train": [
+        "Webmall_Add_To_Cart_Task2",
+        "Webmall_Add_To_Cart_Task7"
+      ],
+      "val": [
+        "Webmall_Add_To_Cart_Task1",
+        "Webmall_Add_To_Cart_Task6"
+      ],
+      "test": [
+        "Webmall_Add_To_Cart_Task4",
+        "Webmall_Add_To_Cart_Task3",
+        "Webmall_Add_To_Cart_Task5"
+      ],
+      "added": {
+        "val": [
+          "Webmall_Add_To_Cart_Task6"
+        ],
+        "train": [
+          "Webmall_Add_To_Cart_Task7"
+        ]
+      },
+      "unused": []
+    },
+    "WEBMALL_FIND_COMPATIBLE_PRODUCTS_V1": {
+      "category": "Compatible_Products",
+      "train": [
+        "Webmall_Find_Compatible_Products_Task2"
+      ],
+      "val": [
+        "Webmall_Find_Compatible_Products_Task4"
+      ],
+      "test": [
+        "Webmall_Find_Compatible_Products_Task3",
+        "Webmall_Find_Compatible_Products_Task5",
+        "Webmall_Find_Compatible_Products_Task1"
+      ],
+      "added": {
+        "val": [],
+        "train": []
+      },
+      "unused": []
+    },
+    "WEBMALL_FIND_SUBSTITUTES_V1": {
+      "category": "Substitute",
+      "train": [
+        "Webmall_Find_Substitutes_Task6"
+      ],
+      "val": [
+        "Webmall_Find_Substitutes_Task4",
+        "Webmall_Find_Substitutes_Task3"
+      ],
+      "test": [
+        "Webmall_Find_Substitutes_Task5",
+        "Webmall_Find_Substitutes_Task2",
+        "Webmall_Find_Substitutes_Task1"
+      ],
+      "added": {
+        "val": [
+          "Webmall_Find_Substitutes_Task3"
+        ],
+        "train": []
+      },
+      "unused": []
+    },
+    "WEBMALL_CHECKOUT_V1": {
+      "category": "Checkout",
+      "train": [
+        "Webmall_Checkout_Task1",
+        "Webmall_Checkout_Task4",
+        "Webmall_Checkout_Task5"
+      ],
+      "val": [
+        "Webmall_Checkout_Task8",
+        "Webmall_Checkout_Task6"
+      ],
+      "test": [
+        "Webmall_Checkout_Task7",
+        "Webmall_Checkout_Task2",
+        "Webmall_Checkout_Task3"
+      ],
+      "added": {
+        "val": [
+          "Webmall_Checkout_Task6"
+        ],
+        "train": [
+          "Webmall_Checkout_Task4",
+          "Webmall_Checkout_Task5"
+        ]
+      },
+      "unused": []
+    },
+    "WEBMALL_END_TO_END_V1": {
+      "category": "FindAndOrder",
+      "train": [
+        "Webmall_EndToEnd_Task8",
+        "Webmall_EndToEnd_Task6",
+        "Webmall_EndToEnd_Task4"
+      ],
+      "val": [
+        "Webmall_EndToEnd_Task5",
+        "Webmall_EndToEnd_Task3"
+      ],
+      "test": [
+        "Webmall_EndToEnd_Task7",
+        "Webmall_EndToEnd_Task2",
+        "Webmall_EndToEnd_Task1"
+      ],
+      "added": {
+        "val": [
+          "Webmall_EndToEnd_Task3"
+        ],
+        "train": [
+          "Webmall_EndToEnd_Task6",
+          "Webmall_EndToEnd_Task4"
+        ]
+      },
+      "unused": []
+    }
+  },
+  "unused": [
+    "Webmall_Find_Specific_Product_Task5",
+    "Webmall_Find_Specific_Product_Task1",
+    "Webmall_Find_Specific_Product_Task2",
+    "Webmall_Find_Specific_Product_Task11",
+    "Webmall_Find_Cheapest_Offer_Task10",
+    "Webmall_Find_Cheapest_Offer_Task1",
+    "Webmall_Products_Fulfilling_Specific_Requirements_Task7",
+    "Webmall_Products_Fulfilling_Specific_Requirements_Task9",
+    "Webmall_Products_Fulfilling_Specific_Requirements_Task11",
+    "Webmall_Cheapest_Offer_Specific_Requirements_Task2",
+    "Webmall_Cheapest_Offer_Specific_Requirements_Task7"
+  ]
+}

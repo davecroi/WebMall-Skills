@@ -71,3 +71,9 @@ def test_spec_token_filter():
         assert _is_spec_token(t), t
     for t in ["5900x", "rtx4060", "i7", "b550"]:
         assert not _is_spec_token(t), t
+
+
+def test_c3_skill_has_no_test_leakage():
+    from webmall_skills.paths import SKILLS_DIR
+    text = (SKILLS_DIR / "skillopt/SKILL.md").read_text()
+    assert leakage_hits(text, build_test_blocklist(SPLIT_V2_DIR)) == []

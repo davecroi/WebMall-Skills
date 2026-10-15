@@ -1,0 +1,33 @@
+{
+  "reasoning": "Preserved both failure-driven edits as the priority: they strengthen exhaustive search closure and require evidence for every qualifying attribute. Kept both success-driven edits because they add distinct guidance on retaining all lowest-price ties and tracking candidates, prices, and URLs for cheapest-offer, substitute, and end-to-end comparisons. [optimizer-ranked: selected 3/4 edits]",
+  "edits": [
+    {
+      "op": "insert_after",
+      "target": "## Cross-Shop Coverage for Complete and Tied Results",
+      "content": "\nFor cheapest-offer, substitute, and end-to-end comparisons, also keep a per-shop ledger of matching candidates, prices, and exact URLs. Update the current best as you compare shops, and purchase only after the planned shop checks are complete.",
+      "support_count": 4,
+      "source_type": "success"
+    },
+    {
+      "op": "append",
+      "content": "\n\n## Verify Each Required Attribute\nQualify each distinct offer only when its own title, specifications, or description provide evidence for every required attribute. Do not infer a feature from a customizable display, a similar product, or another variant in the same product family; for example, an LCD alone does not establish GIF playback. If evidence is unclear, inspect that offer’s product details and keep it out of the final qualifying set unless the requirement is supported.",
+      "support_count": 2,
+      "source_type": "failure"
+    },
+    {
+      "op": "insert_after",
+      "target": "## Cross-Shop Coverage for Complete and Tied Results",
+      "content": "\nFor cheapest-offer tasks, retain every distinct qualifying offer tied at the lowest price across all shops, including multiple matching products from the same shop. Capture and submit the exact URL for each tied offer.",
+      "support_count": 3,
+      "source_type": "success"
+    }
+  ],
+  "ranking_details": {
+    "reasoning": "Edit 3 adds a per-shop comparison ledger and delays purchase until checks are complete, improving several task types. Edit 1 closes a broad qualification gap by requiring evidence for every attribute on each offer. Edit 2 clarifies that all lowest-price ties must be retained and submitted. Edit 0 largely repeats the existing cross-shop coverage and search-closure guidance.",
+    "selected_indices": [
+      3,
+      1,
+      2
+    ]
+  }
+}

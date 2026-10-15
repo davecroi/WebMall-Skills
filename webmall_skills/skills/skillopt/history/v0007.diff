@@ -1,0 +1,20 @@
+--- v0005.md
++++ v0007.md
+@@ -16,6 +16,8 @@
+ - Add offers through result-list controls or product-page **Add to cart** controls. Use the product quantity field when needed.
+ - Inspect `<shop>/cart/` for products and quantities; use **Proceed to Checkout** for checkout tasks.
+ - At `<shop>/checkout/`, fill billing and card fields by label. Check default Country / Region and State / County against the task address; change mismatches using their inner search fields and matching options. Complete checkout with **Place order**, then verify that an order-received confirmation appears before proceeding to final submission.
++
++If requested items are in different shops, each shop has its own cart and checkout. Complete and verify an order for every shop containing a requested item; do not treat confirmation of one shop’s order as completion of the whole task. Navigate to the solution page and submit only after all required orders are confirmed.
+ 
+ ## Task Categories
+ 
+@@ -40,6 +42,8 @@
+ 
+ If the task supplies a product-page URL, open it directly and verify the product title and relevant details. Use that page directly for requested cart or checkout actions; search across shops only when the task asks you to compare offers or find alternatives.
+ 3. Shorten unsuccessful multiword queries to a keyword or synonym. Do not paste full product titles: drop curly quotes, dashes, degree signs and similar characters, and search with a few distinctive keywords.
++
++For attribute-heavy searches, do not rely on one compound query containing every requirement. Search the product type or relevant category, then search distinctive brands, model families, and attribute terms separately; inspect results for equivalent wording and values that differ from the query. Use category listings as an additional discovery route when available. For cheapest-offer searches with noisy or broad results, inspect plausible candidates that could beat the current best, including remaining result pages as needed; do not consider a shop checked based only on the cheapest item encountered in a broad keyword search.
+ 4. Validate search hits: matching can occur in descriptions and inside longer words, not just titles.
+ 5. Read titles and their following amounts from results lists. Normalize decimal and thousands separators before comparing across shops.
+ 6. For cheapest searches, use ascending price sorting on E-Store Athletes, CamelCases, and Hardware Cafe. Compare TechTalk results yourself; its sorting controls do not offer price sorting.

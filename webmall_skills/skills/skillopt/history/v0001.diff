@@ -1,0 +1,26 @@
+--- v0000.md
++++ v0001.md
+@@ -36,7 +36,11 @@
+ ## General Principles
+ 
+ 1. Review the current page and interaction history before acting. Use accessibility-tree bids and interact only with visible elements.
++
++After consequential actions, inspect the resulting URL, page content, or confirmation status to verify they succeeded. If an action times out or errors, re-check the current page and state before retrying: it may already have succeeded, and repeating it could cause duplicate actions.
+ 2. For cross-shop searches, search each shop separately; compare titles and specifications, allowing for case, punctuation, and quote differences.
++
++For multi-part requirements, normalize equivalent configuration notation (such as total kit capacity versus per-module capacity) and verify every required attribute. Reject near-matches that differ in a required configuration, socket, or specification.
+ 3. Shorten unsuccessful multiword queries to a keyword or synonym. Do not paste full product titles: drop curly quotes, dashes, degree signs and similar characters, and search with a few distinctive keywords.
+ 4. Validate search hits: matching can occur in descriptions and inside longer words, not just titles.
+ 5. Read titles and their following amounts from results lists. Normalize decimal and thousands separators before comparing across shops.
+@@ -48,3 +52,11 @@
+ - Do not treat “Related products” on a redirected product page as search results.
+ - Do not interpret “No products were found matching your selection.” as proof of absence; rephrase the query.
+ - Do not wait for a stock-status label: observed product pages lack one.
++
++## Search and Verification Checklist
++
++Do not treat a keyword-search result as a complete product list or as proof that a product qualifies. Track the result count, inspect all relevant pages, and search useful model-name, category, and feature synonyms when results appear incomplete. Open plausible candidates and verify both product type and each requested attribute from the product details. For cheapest tasks, compare qualifying candidates across every shop and continue checking results and ties before choosing; for “all offers” tasks, inspect all plausible variants rather than only the first matching model.
++
++## Task Closeout
++
++Before finishing, check the task’s required outcomes: all requested products are selected, every required cart and checkout is completed (including separate shops when needed), and all required offer URLs are recorded exactly. Then navigate to the solution page, enter the required URL list or `Done`, and press **Submit Final Result**. Do not end after browsing, filling checkout fields, or entering a submission without submitting it.

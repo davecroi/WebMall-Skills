@@ -1,0 +1,32 @@
+--- v0000.md
++++ v0002.md
+@@ -15,7 +15,7 @@
+ - Inspect requested attributes in titles, available short descriptions, and Description-tab text already present in the accessibility tree.
+ - Add offers through result-list controls or product-page **Add to cart** controls. Use the product quantity field when needed.
+ - Inspect `<shop>/cart/` for products and quantities; use **Proceed to Checkout** for checkout tasks.
+-- At `<shop>/checkout/`, fill billing and card fields by label. Check default Country / Region and State / County against the task address; change mismatches using their inner search fields and matching options. Complete checkout with **Place order**.
++- At `<shop>/checkout/`, fill billing and card fields by label. Check default Country / Region and State / County against the task address; change mismatches using their inner search fields and matching options. Complete checkout with **Place order**, then verify that an order-received confirmation appears before proceeding to final submission.
+ 
+ ## Task Categories
+ 
+@@ -37,6 +37,8 @@
+ 
+ 1. Review the current page and interaction history before acting. Use accessibility-tree bids and interact only with visible elements.
+ 2. For cross-shop searches, search each shop separately; compare titles and specifications, allowing for case, punctuation, and quote differences.
++
++If the task supplies a product-page URL, open it directly and verify the product title and relevant details. Use that page directly for requested cart or checkout actions; search across shops only when the task asks you to compare offers or find alternatives.
+ 3. Shorten unsuccessful multiword queries to a keyword or synonym. Do not paste full product titles: drop curly quotes, dashes, degree signs and similar characters, and search with a few distinctive keywords.
+ 4. Validate search hits: matching can occur in descriptions and inside longer words, not just titles.
+ 5. Read titles and their following amounts from results lists. Normalize decimal and thousands separators before comparing across shops.
+@@ -48,3 +50,11 @@
+ - Do not treat “Related products” on a redirected product page as search results.
+ - Do not interpret “No products were found matching your selection.” as proof of absence; rephrase the query.
+ - Do not wait for a stock-status label: observed product pages lack one.
++
++## Cross-Shop Coverage for Complete and Tied Results
++
++For tasks asking for all qualifying offers or every offer tied at a maximum, keep a per-shop ledger of candidates, specifications, and exact offer URLs. After identifying a plausible product, search its distinctive model name or part number in each shop as well as using the general product/category query; equivalent models may have separate shop offers even when a generic query misses them. Count each shop’s relevant results and inspect its remaining pages before concluding that no other qualifying offer exists.
++
++## Bound the Search Before Closeout
++
++Plan a focused search pass for each shop and avoid repeating queries or navigation that produced no new evidence. Once every shop has been checked and the relevant result pages or categories have been covered, switch to recording exact URLs and submitting the result; do not spend the remaining interaction budget on optional searches while leaving the required submission unfinished.
