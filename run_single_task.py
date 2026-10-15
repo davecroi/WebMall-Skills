@@ -8,6 +8,7 @@ from dotenv import load_dotenv
 from pathlib import Path
 from webmall_overrides.env_args import EnvArgsWebMall
 from webmall_overrides.exp_args import ExpArgsWebMall
+from webmall_skills.injection import skill_path, with_skill
 
 from agentlab.agents.visualwebmall_agent.agent import WA_AGENT_4O
 from agentlab.agents.generic_agent import AGENT_4o_VISION
@@ -143,6 +144,8 @@ env_args = EnvArgsWebMall(
 
 
 agent = AGENT_41_AX
+skill = None  # None | "base" | "skillopt" | path to a .md file (see run_webmall_study.py)
+agent = with_skill(agent, skill_path(skill))
 agent.set_benchmark(bgym.DEFAULT_BENCHMARKS["webarena"](), demo_mode="off")
 
 chat_model_args = CHAT_MODEL_ARGS_DICT["openai/gpt-4.1-2025-04-14"]

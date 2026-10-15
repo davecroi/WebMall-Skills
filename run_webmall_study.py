@@ -20,6 +20,7 @@ from agentlab.agents.webmall_generic_agent import (
     AGENT_37_SONNET,
 )
 from webmall_overrides.study import WebMallStudy
+from webmall_skills.injection import skill_path, with_skill
 from pathlib import Path
 from datetime import datetime
 from analyze_agentlab_results.aggregate_log_statistics import process_study_directory
@@ -189,6 +190,14 @@ load_dotenv(PATH_TO_DOT_ENV_FILE)
 
 # choose your agent or provide a new agent
 agent_args = [AGENT_41_AX_M]
+
+# ## select the skill injected into the prompt (see webmall_skills/docs/skill_injection.md)
+# None = no-skill baseline; a name = webmall_skills/skills/<name>/SKILL.md; or a path to a .md file
+skill = None
+# skill = "base"       # hand-built base skill
+# skill = "skillopt"   # SkillOpt C3 skill (best of the C3 run)
+
+agent_args = [with_skill(a, skill_path(skill)) for a in agent_args]
 
 # ## select the benchmark to run on
 
