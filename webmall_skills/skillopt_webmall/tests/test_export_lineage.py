@@ -70,6 +70,9 @@ def test_export_files_and_determinism(tmp_path):
     table = (a / "HISTORY.md").read_text()
     assert "rejected (test_leakage)" in table and "★" in table and "Env errors" in table
     assert (a / "run" / "history.json").exists() and (a / "README.md").exists()
+    readme = (a / "README.md").read_text()
+    assert "`webmall_skills/skills/base/SKILL.md`" in readme and "Thesis code" not in readme
+    assert "`skills/base/SKILL.md`" not in readme       # paths are repo-root relative
     files_a = sorted(p.relative_to(a) for p in a.rglob("*") if p.is_file())
     files_b = sorted(p.relative_to(b) for p in b.rglob("*") if p.is_file())
     assert files_a == files_b
