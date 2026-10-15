@@ -10,20 +10,56 @@ its ALFWorld environment (details: `docs/skill_injection.md`).
 
 ```
 pytest.ini                       # testpaths = webmall_skills, pythonpath = .
-run_webmall_study.py             # agents + skill selector
+run_webmall_study.py             # agents + skill selector + split benchmarks
 run_single_task.py               # agent + skill selector
 webmall_skills/
   __init__.py
   README.md                      # this file
   paths.py                       # REPO_ROOT, PACKAGE_DIR, SKILLS_DIR, TASK_SETS_PATH, results_root(), resolve()
   injection.py                   # with_skill, SkillGenericAgentArgs, skill_path(), available_skills()
+  contamination.py               # shared leakage blocklist (base-skill construction and SkillOpt guard)
   docs/
     skill_injection.md           # how and where the skill enters the prompt, and why
-  tests/                         # core tests: injection, paths
-  skills/
+  tests/                         # core tests: injection, paths, contamination
+  split/                         # shared train/val/test split
+    README.md                    # how the split was drawn, v1 -> v2, file format, guarantees
+    make_split.py                # draws / extends the split
+    benchmarks.py                # webmall_skills_{train,val,test} for run_webmall_study.py
+    split_v2/                    # split_manifest.json, train|val|test/items.json
+    tests/
+  skills/                        # things you can inject (+ how they came to be)
     README.md                    # what a skill folder is, how to add one
     base/SKILL.md                # the hand-built base skill
+    base/construction/           # provenance of the base skill (incl. evidence/)
+    skillopt/                    # C3 skill: SKILL.md, README.md, SUMMARY.md, HISTORY.md, history/, run/
+  skill_construction/            # base-skill construction mechanism (replaceable)
+    README.md, build_sources.py, explore_shops.py, draft_skill.py, tests/
+  skillopt_webmall/              # SkillOpt C3 integration
+    README.md, DESIGN.md
+    configs/c3.yaml
+    train.py                     # training entry point
+    tasks.py adapter.py dataloader.py runner.py agent_config.py scoring.py trajectory.py
+    leakage.py cache.py budget.py openai_compat.py summary.py report.py
+    probe.py export_lineage.py test_eval.py
+    tests/
+  results/                       # measurements (not injectable)
+    README.md                    # what each run is, headline numbers, what is not included
+    skillopt/                    # probe/, c3_pilot/, c3_full/, test/, rollout_cache/, test_cache/,
+                                 # ledgers/, logs/
 ```
+
+## How the parts depend on each other
+
+```
+paths  <-  injection, contamination, split  <-  skill_construction (base skill)
+                                            <-  skillopt_webmall (C3)
+run_webmall_study.py / run_single_task.py  ->  injection, split.benchmarks
+```
+
+Documentation per part: [`docs/skill_injection.md`](docs/skill_injection.md),
+[`skills/README.md`](skills/README.md), [`skill_construction/README.md`](skill_construction/README.md),
+[`split/README.md`](split/README.md), [`skillopt_webmall/README.md`](skillopt_webmall/README.md)
+(design: [`DESIGN.md`](skillopt_webmall/DESIGN.md)), [`results/README.md`](results/README.md).
 
 All paths are derived from `paths.py` and anchored at the repository root, so scripts
 and tests behave the same from any working directory. Raw experiment outputs go to the
@@ -75,8 +111,15 @@ fast loop (condition C3, `gpt-6-luna` as optimizer and target):
 
 1. step 0 `python -m webmall_skills.skillopt_webmall.probe`: base skill vs. no skill on val
 2. training `python -m webmall_skills.skillopt_webmall.train --out_root skillopt_results/c3_full`
-3. summaries `python -m webmall_skills.skillopt_webmall.report` and lineage export to `skills/skillopt/`
+3. summaries `python -m webmall_skills.skillopt_webmall.report` and lineage export to `webmall_skills/skills/skillopt/`
 4. held-out test `python -m webmall_skills.skillopt_webmall.test_eval {best,base,noskill}`
 5. raw outputs in `skillopt_results/`, committed summaries in `webmall_skills/results/skillopt/`
 
 Commands, outputs and how to add a condition: [`skillopt_webmall/README.md`](skillopt_webmall/README.md).
+
+## How to extend
+
+- **New skill:** add `skills/<name>/SKILL.md`; it is immediately selectable as `skill = "<name>"` (see `skills/README.md`).
+- **New SkillOpt condition:** add a config next to `skillopt_webmall/configs/c3.yaml` and run it through `skillopt_webmall/train.py`; see `skillopt_webmall/README.md`.
+- **Reworking the base-skill construction:** `skill_construction/` is replaceable. Only `skills/base/SKILL.md` is consumed elsewhere, and the shared leakage blocklist lives in `contamination.py`, so changing or deleting `skill_construction/` does not break C3.
+- **Adding a split:** create a new folder under `split/` (e.g. `split_v3/`) with a manifest that `extends` the previous one, and register it in `split/benchmarks.py`. Never re-draw the test split.

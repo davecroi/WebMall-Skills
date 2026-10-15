@@ -9,6 +9,10 @@ This repository contains the code and data of the WebMall benchmark for evaluati
 
 For more detailed information about the benchmark design, task specifications, and initial results, please refer to our [website](https://wbsg-uni-mannheim.github.io/WebMall/).
 
+## WebMall Skills (this fork)
+
+This fork adds agent skills (`SKILL.md` documents with learned strategies) that are injected into the prompt of the AgentLab `GenericAgent` running WebMall, so the same agent can be compared with and without a skill. Two skills are included: a hand-built base skill and a self-improving skill evolved with SkillOpt (condition C3), evaluated on a fixed train/val/test split of the tasks. See [`webmall_skills/README.md`](webmall_skills/README.md) for setup, usage and layout; it requires `git submodule update --init --recursive` (which now also includes `SkillOpt`).
+
 ## Setting up WebMall
 
 ### Environment

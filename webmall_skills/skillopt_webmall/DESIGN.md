@@ -57,7 +57,7 @@ cache are built so C4 can reuse them.
 - **Why:** the one-epoch pilot (v1) had train F1 0.94 (one failure minibatch to reflect
   on), and its step-1 rejection (val F1 0.709 vs. 0.755 over 22 rollouts) was about one
   task flipping, within the gate's noise.
-- **How:** `make_split.py --extend` keeps v1's train/val/test and, per category, moves
+- **How:** `make_split.py` (default action, `extend_split`) keeps v1's train/val/test and, per category, moves
   the next unused tasks in the stored seed-42 order to val (+1), then train (+2).
   Nothing is re-drawn; **test is byte-identical to v1**. The manifest records the v1
   manifest's sha256, the extra counts, the reason and the added IDs.
