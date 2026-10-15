@@ -67,3 +67,16 @@ drawn, its v1 to v2 extension and its guarantees: `webmall_skills/split/README.m
 ```bash
 Browsergym/.venv/bin/python -m pytest
 ```
+
+## SkillOpt (C3)
+
+`webmall_skills/skillopt_webmall/` evolves the base skill with SkillOpt's validation-gated
+fast loop (condition C3, `gpt-6-luna` as optimizer and target):
+
+1. step 0 `python -m webmall_skills.skillopt_webmall.probe`: base skill vs. no skill on val
+2. training `python -m webmall_skills.skillopt_webmall.train --out_root skillopt_results/c3_full`
+3. summaries `python -m webmall_skills.skillopt_webmall.report` and lineage export to `skills/skillopt/`
+4. held-out test `python -m webmall_skills.skillopt_webmall.test_eval {best,base,noskill}`
+5. raw outputs in `skillopt_results/`, committed summaries in `webmall_skills/results/skillopt/`
+
+Commands, outputs and how to add a condition: [`skillopt_webmall/README.md`](skillopt_webmall/README.md).
