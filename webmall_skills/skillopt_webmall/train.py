@@ -19,25 +19,23 @@ from dotenv import load_dotenv
 from webmall_skills.paths import REPO_ROOT, resolve
 
 C3_CONFIG = Path(__file__).resolve().parent / "configs/c3.yaml"
+OPENROUTER_BASE_URL = "https://openrouter.ai/api/v1"
 
 
 def configure_env() -> None:
-    """Point SkillOpt's openai_compatible backend at the OpenAI API (before it is imported)."""
+    """Point SkillOpt's openai_compatible backend at OpenRouter (before it is imported)."""
     load_dotenv(REPO_ROOT / ".env")
-    key = os.environ.get("OPENAI_API_KEY")
+    key = os.environ.get("OPENROUTER_API_KEY")
     if not key:
-        raise SystemExit("OPENAI_API_KEY is missing (set it in .env at the repo root)")
-    os.environ.setdefault("OPENAI_COMPATIBLE_API_KEY", key)
-    os.environ.setdefault("OPENAI_COMPATIBLE_BASE_URL", "https://api.openai.com/v1")
+        raise SystemExit("OPENROUTER_API_KEY is missing (set it in .env at the repo root)")
+    os.environ["OPENAI_COMPATIBLE_API_KEY"] = key
+    os.environ["OPENAI_COMPATIBLE_BASE_URL"] = OPENROUTER_BASE_URL
     os.environ.setdefault("OPENAI_COMPATIBLE_MAX_TOKENS", "32000")
 
 
 def register():
     from scripts import train as skillopt_train
     from webmall_skills.skillopt_webmall.adapter import WebMallAdapter
-    from webmall_skills.skillopt_webmall.openai_compat import use_max_completion_tokens
-
-    use_max_completion_tokens()
 
     skillopt_train._ENV_REGISTRY["webmall"] = WebMallAdapter
     return skillopt_train

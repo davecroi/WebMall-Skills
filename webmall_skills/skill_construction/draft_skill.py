@@ -1,9 +1,10 @@
-"""One API call to gpt-6.1-sol that drafts the base skill.
+"""One OpenRouter call to deepseek/deepseek-v4.1-flash that drafts the base skill.
 
 Usage (from the repo root): python -m webmall_skills.skill_construction.draft_skill
 """
 
 import json
+import os
 from pathlib import Path
 
 from dotenv import load_dotenv
@@ -12,8 +13,9 @@ from openai import OpenAI
 from webmall_skills.paths import REPO_ROOT, SKILLS_DIR
 
 CONSTRUCTION_DIR = SKILLS_DIR / "base/construction"
-MODEL = "gpt-6.1-sol"
-REASONING_EFFORT = "high"  # temperature is fixed at 1 by the model and not sent
+MODEL = "deepseek/deepseek-v4.1-flash"
+REASONING_EFFORT = "high"  # temperature not sent: provider default
+OPENROUTER_BASE_URL = "https://openrouter.ai/api/v1"
 
 
 def build_request(prompt: str, sources: str, findings: str) -> dict:
@@ -38,7 +40,8 @@ def run() -> Path:
         json.dumps(request, indent=2),
         encoding="utf-8",
     )
-    response = OpenAI().chat.completions.create(**request)
+    client = OpenAI(api_key=os.environ["OPENROUTER_API_KEY"], base_url=OPENROUTER_BASE_URL)
+    response = client.chat.completions.create(**request)
     (CONSTRUCTION_DIR / "draft_response.json").write_text(
         response.model_dump_json(indent=2), encoding="utf-8"
     )

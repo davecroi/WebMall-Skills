@@ -39,7 +39,7 @@ webmall_skills/
     configs/c3.yaml
     train.py                     # training entry point
     tasks.py adapter.py dataloader.py runner.py agent_config.py scoring.py trajectory.py
-    leakage.py cache.py budget.py openai_compat.py summary.py report.py
+    leakage.py cache.py budget.py summary.py report.py
     probe.py export_lineage.py test_eval.py
     tests/
   results/                       # measurements (not injectable)
@@ -76,7 +76,7 @@ python3.12 -m venv Browsergym/.venv && source Browsergym/.venv/bin/activate
 Browsergym/.venv/bin/pip install pytest
 Browsergym/.venv/bin/pip install -e AgentLab
 Browsergym/.venv/bin/pip install -e SkillOpt
-cp .env.example .env                       # then fill in OPENAI_API_KEY / OPENROUTER_API_KEY
+cp .env.example .env                       # then fill in OPENROUTER_API_KEY
 ```
 
 ## Run with a skill
@@ -111,7 +111,8 @@ Browsergym/.venv/bin/python -m pytest
 ## SkillOpt (C3)
 
 `webmall_skills/skillopt_webmall/` evolves the base skill with SkillOpt's validation-gated
-fast loop (condition C3, `gpt-6-luna` as optimizer and target):
+fast loop (condition C3, `deepseek/deepseek-v4.1-flash` (via OpenRouter) as optimizer and target; the archived run in
+`results/skillopt/` used `gpt-6-luna`):
 
 1. step 0 `python -m webmall_skills.skillopt_webmall.probe`: base skill vs. no skill on val
 2. training `python -m webmall_skills.skillopt_webmall.train --out_root skillopt_results/c3_full`

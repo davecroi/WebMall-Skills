@@ -15,7 +15,7 @@ from agentlab.agents.generic_agent import AGENT_4o_VISION
 
 from agentlab.agents.most_basic_agent.most_basic_agent import MostBasicAgentArgs
 from agentlab.llm.llm_configs import CHAT_MODEL_ARGS_DICT
-from agentlab.llm.chat_api import OpenAIModelArgs
+from agentlab.llm.chat_api import OpenAIModelArgs, OpenRouterModelArgs
 
 from agentlab.experiments.launch_exp import run_experiments
 
@@ -132,6 +132,19 @@ AGENT_GPT6_LUNA_AX_M = GenericAgentArgs(
     flags=FLAGS_AX_M,
 )
 
+# requires OPENROUTER_API_KEY in .env
+AGENT_DEEPSEEK_V41_FLASH_AX_M = GenericAgentArgs(
+    chat_model_args=OpenRouterModelArgs(
+        model_name="deepseek/deepseek-v4.1-flash",
+        max_total_tokens=1_048_576,
+        max_input_tokens=1_048_576 - 32_768,
+        max_new_tokens=32_768,
+        temperature=1e-1,
+        vision_support=True,
+    ),
+    flags=FLAGS_AX_M,
+)
+
 # example for a single task
 env_args = EnvArgsWebMall(
     task_name="webmall.Webmall_Best_Fit_Specific_Task6",
@@ -143,7 +156,7 @@ env_args = EnvArgsWebMall(
 
 
 
-agent = AGENT_41_AX
+agent = AGENT_DEEPSEEK_V41_FLASH_AX_M
 skill = None  # None | "base" | "skillopt" | path to a .md file (see run_webmall_study.py)
 agent = with_skill(agent, skill_path(skill))
 agent.set_benchmark(bgym.DEFAULT_BENCHMARKS["webarena"](), demo_mode="off")

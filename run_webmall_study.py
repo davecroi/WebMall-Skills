@@ -184,13 +184,25 @@ AGENT_OR_CLAUDE_AX_M = GenericAgentArgs(
     flags=FLAGS_AX_M,
 )
 
+AGENT_DEEPSEEK_V41_FLASH_AX_M = GenericAgentArgs(
+    chat_model_args=OpenRouterModelArgs(
+        model_name="deepseek/deepseek-v4.1-flash",
+        max_total_tokens=1_048_576,
+        max_input_tokens=1_048_576 - 32_768,
+        max_new_tokens=32_768,
+        temperature=1e-1,
+        vision_support=True,
+    ),
+    flags=FLAGS_AX_M,
+)
+
 current_file = Path(__file__).resolve()
 PATH_TO_DOT_ENV_FILE = current_file.parent / ".env"
 load_dotenv(PATH_TO_DOT_ENV_FILE)
 
 
 # choose your agent or provide a new agent
-agent_args = [AGENT_41_AX_M]
+agent_args = [AGENT_DEEPSEEK_V41_FLASH_AX_M]
 
 # ## select the skill injected into the prompt (see webmall_skills/docs/skill_injection.md)
 # None = no-skill baseline; a name = webmall_skills/skills/<name>/SKILL.md; or a path to a .md file

@@ -7,7 +7,7 @@ from webmall_skills.skillopt_webmall import runner
 
 @pytest.fixture(autouse=True)
 def fake_key(monkeypatch):
-    monkeypatch.setenv("OPENAI_API_KEY", "test-key")
+    monkeypatch.setenv("OPENROUTER_API_KEY", "test-key")
 
 
 def test_make_exp_args_matches_benchmark_settings():
@@ -21,16 +21,16 @@ def test_make_exp_args_matches_benchmark_settings():
 
 
 def test_build_agent_without_skill_does_not_mutate_shared_agent():
-    from webmall_skills.skillopt_webmall.agent_config import AGENT_GPT6_LUNA_AX_M
+    from webmall_skills.skillopt_webmall.agent_config import AGENT_DEEPSEEK_V41_FLASH_AX_M
     a = runner.build_agent(None, "noskill")
-    assert a is not AGENT_GPT6_LUNA_AX_M
+    assert a is not AGENT_DEEPSEEK_V41_FLASH_AX_M
     assert not hasattr(a, "skill_text") or a.skill_text is None
 
 
 def test_build_agent_with_skill_does_not_share_flags():
-    from webmall_skills.skillopt_webmall.agent_config import AGENT_GPT6_LUNA_AX_M
+    from webmall_skills.skillopt_webmall.agent_config import AGENT_DEEPSEEK_V41_FLASH_AX_M
     a = runner.build_agent("Skill text", "so1")
-    assert a.flags is not AGENT_GPT6_LUNA_AX_M.flags
+    assert a.flags is not AGENT_DEEPSEEK_V41_FLASH_AX_M.flags
 
 
 def test_run_tasks_rejects_duplicate_ids(tmp_path, monkeypatch):

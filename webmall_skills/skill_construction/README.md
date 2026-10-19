@@ -89,7 +89,7 @@ it is from the same family as the evaluated `gpt-6-luna`.
 | `../contamination.py` (`webmall_skills.contamination`) | Loads the 91 benchmark tasks (`Browsergym/.../webmall/task_sets.json` + `examples/task_strings.txt`), builds a blocklist (task words, 3-word phrases, model tokens like `5900x`, expected-answer URL slugs) and checks text against it. Three CLI modes (see below). Shared with SkillOpt's leakage guard, so it lives outside this subpackage. | nothing (prints) |
 | `build_sources.py` | Assembles the allowed sources: the general instruction block shared by all tasks, the 11 category descriptions from `website/index.html` (example tasks removed, overlapping phrases paraphrased via `REDACTIONS`), and the agent prompt layout from `examples/task_message.txt` (goal, observation and history replaced by placeholders). | `construction/sources.md` |
 | `explore_shops.py` | Drives the four shops and the solution page through BrowserGym's `browsergym/openended` task with the agent's own actions (`fill`, `click`, `keyboard_press`, `goto`) and saves the flattened AX tree the agent would see. Probes search (Enter vs. button, no-results, long vs. short query), product page, cart and checkout (**never places an order**). No LLM calls. | `construction/evidence/*.txt`, `construction/evidence/summary.json` |
-| `draft_skill.py` | Makes **one** OpenAI call to `gpt-6.1-sol` (`reasoning_effort="high"`, no temperature — the model only supports the default) with `draft_prompt.md` + `sources.md` + `findings.md`, and saves request, response and draft verbatim. | `construction/draft_request.json`, `draft_response.json`, `draft_SKILL.md` |
+| `draft_skill.py` | Makes **one** OpenRouter call to `deepseek/deepseek-v4.1-flash` (`reasoning_effort="high"`, no temperature; the committed base skill was drafted by `gpt-6.1-sol`) with `draft_prompt.md` + `sources.md` + `findings.md`, and saves request, response and draft verbatim. | `construction/draft_request.json`, `draft_response.json`, `draft_SKILL.md` |
 | `tests/` | Unit tests for the pure logic of the three scripts (no network, no browser). The contamination tests are in `webmall_skills/tests/test_contamination.py`. | — |
 
 `draft_request.json` and `draft_response.json` are written on every re-run of
@@ -114,7 +114,7 @@ python -m webmall_skills.contamination words FILE     # list every word whose st
 - Run everything from the repo root with the BrowserGym venv: `PY=Browsergym/.venv/bin/python`
 - `pytest` in that venv (`$PY -m pip install pytest`)
 - The Docker shops running (`http://localhost:8081`–`8085`, see `.env` and `docker_all/README.md`)
-- `OPENAI_API_KEY` in `.env` at the repo root (only for the draft step)
+- `OPENROUTER_API_KEY` in `.env` at the repo root (only for the draft step)
 
 ## Running the process
 

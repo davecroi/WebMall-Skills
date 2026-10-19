@@ -6,8 +6,8 @@ model:
   backend: openai_compatible          # SkillOpt's openai_chat is Azure-only
   optimizer_backend: openai_compatible
   target_backend: openai_compatible
-  optimizer: gpt-6-luna               # temperature not sent: API default 1 (the only supported value)
-  target: gpt-6-luna                  # rollouts run through AgentLab (AGENT_GPT6_LUNA_AX_M)
+  optimizer: deepseek/deepseek-v4.1-flash   # via OpenRouter; temperature not sent (provider default)
+  target: deepseek/deepseek-v4.1-flash      # rollouts run through AgentLab (AGENT_DEEPSEEK_V41_FLASH_AX_M)
 
 train:
   num_epochs: 4
@@ -40,7 +40,7 @@ env:
   split_dir: webmall_skills/split/split_v2              # same tasks as the thesis' skillopt_webmall/split_v2: v1 (11/11/33) + unused tasks; test unchanged
   val_repeats: 1                      # more val tasks instead of repeats (split_v2)
   budget_usd: 25
-  # USD per 1M tokens for gpt-6-luna (OpenAI list price via OpenRouter, 2026-10-07; prompts < 272k tokens).
-  price_input_per_m: 0.10
-  price_output_per_m: 0.50
+  # USD per 1M tokens for deepseek/deepseek-v4.1-flash (OpenRouter list price, 2026-10-19).
+  price_input_per_m: 0.0344
+  price_output_per_m: 0.08
   n_jobs: 1

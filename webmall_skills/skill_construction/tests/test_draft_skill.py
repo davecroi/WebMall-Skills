@@ -3,7 +3,7 @@ from webmall_skills.skill_construction.draft_skill import MODEL, build_request
 
 def test_request_has_fixed_model_and_no_temperature():
     req = build_request("PROMPT", "SRC", "FND")
-    assert req["model"] == MODEL == "gpt-6.1-sol"
+    assert req["model"] == MODEL == "deepseek/deepseek-v4.1-flash"
     assert "temperature" not in req
     assert req["reasoning_effort"] == "high"
 

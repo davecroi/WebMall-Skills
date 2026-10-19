@@ -20,8 +20,8 @@ cache are built so C4 can reuse them.
 | Topic | Decision |
 |---|---|
 | Split | Stratified split of the 91 WebMall tasks by category, seed 42 (matches SkillOpt `train.seed`), drawn once and committed before any experiment. v1: 1/1/3 per category (11/11/33). Runs after the pilot use `split_v2` (26/21/33), see below. |
-| Optimizer model | `gpt-6-luna` (self-improvement: the agent improves its own skill; matches SkillOpt's default optimizer = target). |
-| Target model | `gpt-6-luna`, AX tree + memory (`AGENT_GPT6_LUNA_AX_M`). |
+| Optimizer model | `deepseek/deepseek-v4.1-flash` via OpenRouter; the archived run used `gpt-6-luna` (self-improvement: the agent improves its own skill; matches SkillOpt's default optimizer = target). |
+| Target model | `deepseek/deepseek-v4.1-flash` via OpenRouter, AX tree + memory (`AGENT_DEEPSEEK_V41_FLASH_AX_M`); the archived run used `gpt-6-luna`. |
 | Base skill author | `gpt-6.1-sol` (a fixed starting artefact, disclosed). |
 | SkillOpt mode | Fast loop only: `use_slow_update: false`, `use_meta_skill: false`. |
 | Gate metric | `soft` = mean per-task F1 over val (`split_v2`: 21 tasks × 1 repeat). |
@@ -35,10 +35,8 @@ cache are built so C4 can reuse them.
   and meta mechanisms belong to C4. SkillOpt's "meta skill" (passive optimizer memory) is
   not MetaSkill-Evolve's meta-skill.
 - **Backend `openai_compatible`** for both roles (SkillOpt's `openai_chat` is Azure-only),
-  pointed at the OpenAI API by `train.configure_env()`. Temperature is not sent: Luna only
-  supports the default of 1.
-- **`max_completion_tokens` shim** (`openai_compat.py`): SkillOpt sends `max_tokens`,
-  which gpt-6-luna rejects.
+  pointed at OpenRouter (`OPENROUTER_API_KEY`) by `train.configure_env()`. Temperature is
+  not sent to the optimizer (provider default); the target agent uses 0.1.
 - **Val repeats and batch size** come from the split (below); all other values stay at
   SkillOpt's defaults and are recorded in each run's `config.json`.
 
@@ -72,7 +70,7 @@ cache are built so C4 can reuse them.
 
 **Rollout** of a batch with a candidate skill text:
 
-1. The agent is `with_skill(AGENT_GPT6_LUNA_AX_M, skill_text=…, skill_name=…)`, the same
+1. The agent is `with_skill(AGENT_DEEPSEEK_V41_FLASH_AX_M, skill_text=…, skill_name=…)`, the same
    injection used for test runs (skill under `## Skill Knowledge`).
 2. The batch's task IDs run as one AgentLab study (`runner.run_tasks`, 50 steps,
    `n_relaunch=1`), one study per repeat, under `<out_dir>/agentlab/r<k>/`.
@@ -156,9 +154,9 @@ version. The export is deterministic: same run dir → byte-identical output.
 
 ## Known limitations
 
-- **The cache key has no model id.** Only Luna runs through the adapter; test runs with
-  other backbones go through `run_webmall_study.py`. A second target model in the
-  adapter would need its own cache directory.
+- **The cache key has no model id.** Val rollouts cached by one target model are reused
+  for any other. The archived gpt-6-luna caches must not be copied into the results root
+  of a DeepSeek run; use a fresh `SKILLOPT_RESULTS_DIR` per target model.
 - **`export_lineage` deletes `--out` without checking it.** It `rmtree`s the output
   folder before writing; point `--out` only at an export folder.
 - **The `task_type` regex is narrower than WebMall's** (`^(.*?_Task)\d+$` vs.
@@ -166,5 +164,3 @@ version. The export is deterministic: same run dir → byte-identical output.
 - **A leaky candidate served from SkillOpt's selection cache** is labelled
   `rejected (gate)` instead of `rejected (test_leakage)` (rare; it is still rejected).
 - **Env-error train rollouts reach reflection** as agent failures (`hard = 0`).
-- **The `max_completion_tokens` shim** (`openai_compat.py`) is needed while SkillOpt
-  sends `max_tokens`; it patches SkillOpt's client at registration time.

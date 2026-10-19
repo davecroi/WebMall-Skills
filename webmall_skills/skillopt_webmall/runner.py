@@ -1,6 +1,6 @@
 """Run WebMall tasks through AgentLab with a given skill text.
 
-Uses the same agent (AGENT_GPT6_LUNA_AX_M), skill injection (webmall_skills.injection.with_skill),
+Uses the same agent (AGENT_DEEPSEEK_V41_FLASH_AX_M), skill injection (webmall_skills.injection.with_skill),
 benchmark settings (webmall_v1.0: max 50 steps, headless) as the test runs.
 """
 from __future__ import annotations
@@ -12,7 +12,7 @@ from pathlib import Path
 
 from agentlab.experiments.launch_exp import run_experiments
 from webmall_skills.injection import with_skill
-from webmall_skills.skillopt_webmall.agent_config import AGENT_GPT6_LUNA_AX_M
+from webmall_skills.skillopt_webmall.agent_config import AGENT_DEEPSEEK_V41_FLASH_AX_M
 from webmall_skills.skillopt_webmall.tasks import gym_task_name
 from webmall_overrides.configs import WEBMALL_BENCHMARKS
 from webmall_overrides.env_args import EnvArgsWebMall
@@ -24,9 +24,9 @@ MAX_STEPS = 50
 def build_agent(skill_text: str | None, skill_name: str):
     if skill_text:
         agent = copy.deepcopy(
-            with_skill(AGENT_GPT6_LUNA_AX_M, skill_text=skill_text, skill_name=skill_name))
+            with_skill(AGENT_DEEPSEEK_V41_FLASH_AX_M, skill_text=skill_text, skill_name=skill_name))
     else:
-        agent = copy.deepcopy(AGENT_GPT6_LUNA_AX_M)
+        agent = copy.deepcopy(AGENT_DEEPSEEK_V41_FLASH_AX_M)
     agent.set_benchmark(WEBMALL_BENCHMARKS["webmall_v1.0"](), False)
     return agent
 

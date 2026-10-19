@@ -9,7 +9,7 @@ from webmall_skills.skillopt_webmall.train import check_paths
 
 @pytest.fixture(autouse=True)
 def fake_env(monkeypatch, tmp_path):
-    monkeypatch.setenv("OPENAI_API_KEY", "test-key")
+    monkeypatch.setenv("OPENROUTER_API_KEY", "test-key")
     monkeypatch.setenv("SKILLOPT_RESULTS_DIR", str(tmp_path))
 
 
@@ -25,7 +25,7 @@ def load(monkeypatch, tmp_path, *overrides):
 def test_config_values(monkeypatch, tmp_path):
     _, cfg = load(monkeypatch, tmp_path)
     assert cfg["env"] == "webmall"
-    assert cfg["optimizer_model"] == "gpt-6-luna" and cfg["target_model"] == "gpt-6-luna"
+    assert cfg["optimizer_model"] == cfg["target_model"] == "deepseek/deepseek-v4.1-flash"
     assert cfg["optimizer_backend"] == "openai_compatible"
     assert cfg["gate_metric"] == "soft"
     assert cfg["use_slow_update"] is False and cfg["use_meta_skill"] is False
@@ -45,13 +45,13 @@ def test_adapter_built_from_config(monkeypatch, tmp_path):
     assert len(a.dataloader.train_items) == 26 and len(a.dataloader.val_items) == 21
 
 
-def test_configure_env_maps_openai_key(monkeypatch):
+def test_configure_env_points_at_openrouter(monkeypatch):
     for k in ("OPENAI_COMPATIBLE_API_KEY", "OPENAI_COMPATIBLE_BASE_URL", "OPENAI_COMPATIBLE_MAX_TOKENS"):
         monkeypatch.delenv(k, raising=False)
     train_skillopt.configure_env()
     import os
-    assert os.environ["OPENAI_COMPATIBLE_API_KEY"] == os.environ["OPENAI_API_KEY"]
-    assert os.environ["OPENAI_COMPATIBLE_BASE_URL"] == "https://api.openai.com/v1"
+    assert os.environ["OPENAI_COMPATIBLE_API_KEY"] == os.environ["OPENROUTER_API_KEY"]
+    assert os.environ["OPENAI_COMPATIBLE_BASE_URL"] == "https://openrouter.ai/api/v1"
     assert os.environ["OPENAI_COMPATIBLE_MAX_TOKENS"] == "32000"
 
 
@@ -92,12 +92,6 @@ def test_results_folder_is_git_ignored():
     from webmall_skills.paths import REPO_ROOT
     r = subprocess.run(["git", "check-ignore", "-q", "skillopt_results/x"], cwd=REPO_ROOT)
     assert r.returncode == 0
-
-
-def test_register_installs_max_completion_tokens_shim():
-    train_skillopt.register()
-    from skillopt.model import openai_compatible_backend as backend
-    assert getattr(backend._build_client, "_max_completion_tokens", False)
 
 
 def test_check_paths_refuses_missing_skill_init():
