@@ -147,7 +147,7 @@ AGENT_DEEPSEEK_V41_FLASH_AX_M = GenericAgentArgs(
 
 # example for a single task
 env_args = EnvArgsWebMall(
-    task_name="webmall.Webmall_Best_Fit_Specific_Task6",
+    task_name="webmall.Webmall_Find_Specific_Product_Task9",
     task_seed=0,
     max_steps=30,
     headless=True,
