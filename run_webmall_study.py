@@ -254,7 +254,10 @@ if __name__ == "__main__":  # necessary for dask backend
         )
         study_name = study.name
         timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
-        study_dir = f"{os.getenv('AGENTLAB_EXP_ROOT')}/{timestamp}_{study_name}/"
+        # same place as AgentLab/original WebMall: $AGENTLAB_EXP_ROOT, or $HOME/agentlab_results
+        # when it is unset or empty (an empty value would otherwise put the study under "/")
+        exp_root = os.getenv("AGENTLAB_EXP_ROOT") or Path.home() / "agentlab_results"
+        study_dir = f"{exp_root}/{timestamp}_{study_name}/"
         study = WebMallStudy(
             agent_args,
             benchmark,
@@ -274,5 +277,5 @@ if __name__ == "__main__":  # necessary for dask backend
     if reproducibility_mode:
         study.append_to_journal(strict_reproducibility=True)
 
-    summarize_all_tasks_in_subdirs(study_dir)
-    process_study_directory(study_dir)
+    summarize_all_tasks_in_subdirs(str(study.dir))
+    process_study_directory(str(study.dir))
