@@ -327,4 +327,25 @@ WEBMALL_BENCHMARKS = {
         ),
         task_metadata=task_metadata("webmall"),
     ),
+    # 5 tasks of different categories to sanity-check the DeepSeek fixes before a full run
+    "webmall_deepseek_fix_check_v1.0": lambda: WebMallBenchmark(
+        name="webmall_deepseek_fix_check_v1.0",
+        high_level_action_set_args=DEFAULT_HIGHLEVEL_ACTION_SET_ARGS["webarena"],
+        is_multi_tab=True,
+        supports_parallel_seeds=True,
+        backends=["webmall"],
+        env_args_list=make_env_args_list_from_repeat_tasks(
+            task_list=[
+                "webmall.Webmall_Find_Specific_Product_Task9",
+                "webmall.Webmall_Find_Cheapest_Offer_Task3",
+                "webmall.Webmall_Products_Fulfilling_Specific_Requirements_Task1",
+                "webmall.Webmall_Add_To_Cart_Task2",
+                "webmall.Webmall_Checkout_Task7",
+            ],
+            max_steps=50,
+            n_repeats=1,
+            seeds_rng=np.random.RandomState(42),
+        ),
+        task_metadata=task_metadata("webmall"),
+    ),
 }

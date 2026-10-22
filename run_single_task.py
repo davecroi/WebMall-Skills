@@ -140,6 +140,7 @@ AGENT_DEEPSEEK_V41_FLASH_AX_M = GenericAgentArgs(
         max_input_tokens=1_048_576 - 32_768,
         max_new_tokens=32_768,
         temperature=1,  # like gpt-6-luna, see run_webmall_study.py
+        provider={"sort": "price"},  # cheapest provider first, fallbacks stay enabled
         vision_support=True,
     ),
     flags=FLAGS_AX_M,
