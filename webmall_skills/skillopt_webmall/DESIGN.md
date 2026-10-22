@@ -36,7 +36,7 @@ cache are built so C4 can reuse them.
   not MetaSkill-Evolve's meta-skill.
 - **Backend `openai_compatible`** for both roles (SkillOpt's `openai_chat` is Azure-only),
   pointed at OpenRouter (`OPENROUTER_API_KEY`) by `train.configure_env()`. Temperature is
-  not sent to the optimizer (provider default); the target agent uses 0.1.
+  not sent to the optimizer (provider default); the target agent uses 1, like Luna.
 - **Val repeats and batch size** come from the split (below); all other values stay at
   SkillOpt's defaults and are recorded in each run's `config.json`.
 

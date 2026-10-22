@@ -190,7 +190,9 @@ AGENT_DEEPSEEK_V41_FLASH_AX_M = GenericAgentArgs(
         max_total_tokens=1_048_576,
         max_input_tokens=1_048_576 - 32_768,
         max_new_tokens=32_768,
-        temperature=1e-1,
+        # 1 like gpt-6-luna and the other reasoning models; at 0.1 a parse retry resamples
+        # the same malformed answer, and the model falls into repetition loops
+        temperature=1,
         vision_support=True,
     ),
     flags=FLAGS_AX_M,
@@ -214,11 +216,12 @@ agent_args = [with_skill(a, skill_path(skill)) for a in agent_args]
 
 # ## select the benchmark to run on
 
-benchmark = "webmall_specific_product_search_v1.0"
+# benchmark = "webmall_specific_product_search_v1.0"
 # benchmark = "webmall_vague_product_search_v1.0"
 # benchmark = "webmall_cheapest_product_search_v1.0"
 # benchmark = "webmall_action_and_transaction_v1.0"
 # benchmark = "webmall_end_to_end_v1.0"
+benchmark = "webmall_old_setup_failure_v1.0"  # 1 task that failed with the old DeepSeek setup
 # benchmark = "webmall_skills_test"   # 33 held-out test tasks of the webmall_skills split
 # benchmark = "webmall_skills_val"    # 21 validation tasks (used by SkillOpt's gate)
 # benchmark = "webmall_skills_train"  # 26 training tasks
