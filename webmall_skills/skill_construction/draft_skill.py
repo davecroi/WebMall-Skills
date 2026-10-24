@@ -29,6 +29,7 @@ def build_request(prompt: str, sources: str, findings: str) -> dict:
         "reasoning_effort": REASONING_EFFORT,
         "max_completion_tokens": 32_000,
         "messages": [{"role": "user", "content": content}],
+        "extra_body": {"provider": {"sort": "price"}},
     }
 
 
