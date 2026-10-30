@@ -146,6 +146,19 @@ AGENT_DEEPSEEK_V41_FLASH_AX_M = GenericAgentArgs(
     flags=FLAGS_AX_M,
 )
 
+AGENT_GLM_53_FLASH_AX_M = GenericAgentArgs(
+    chat_model_args=OpenRouterModelArgs(
+        model_name="z-ai/glm-5.3-flash",
+        max_total_tokens=1_048_576,
+        max_input_tokens=1_048_576 - 32_768,
+        max_new_tokens=32_768,
+        temperature=1,
+        provider={"sort": "price"},  # cheapest provider first, fallbacks stay enabled
+        vision_support=True,
+    ),
+    flags=FLAGS_AX_M,
+)
+
 # example for a single task
 env_args = EnvArgsWebMall(
     task_name="webmall.Webmall_Find_Specific_Product_Task9",
@@ -157,7 +170,7 @@ env_args = EnvArgsWebMall(
 
 
 
-agent = AGENT_DEEPSEEK_V41_FLASH_AX_M
+agent = AGENT_GLM_53_FLASH_AX_M
 skill = None  # None | "base" | "skillopt" | path to a .md file (see run_webmall_study.py)
 agent = with_skill(agent, skill_path(skill))
 agent.set_benchmark(bgym.DEFAULT_BENCHMARKS["webarena"](), demo_mode="off")

@@ -21,16 +21,16 @@ def test_make_exp_args_matches_benchmark_settings():
 
 
 def test_build_agent_without_skill_does_not_mutate_shared_agent():
-    from webmall_skills.skillopt_webmall.agent_config import AGENT_DEEPSEEK_V41_FLASH_AX_M
+    from webmall_skills.skillopt_webmall.agent_config import TARGET_AGENT
     a = runner.build_agent(None, "noskill")
-    assert a is not AGENT_DEEPSEEK_V41_FLASH_AX_M
+    assert a is not TARGET_AGENT
     assert not hasattr(a, "skill_text") or a.skill_text is None
 
 
 def test_build_agent_with_skill_does_not_share_flags():
-    from webmall_skills.skillopt_webmall.agent_config import AGENT_DEEPSEEK_V41_FLASH_AX_M
+    from webmall_skills.skillopt_webmall.agent_config import TARGET_AGENT
     a = runner.build_agent("Skill text", "so1")
-    assert a.flags is not AGENT_DEEPSEEK_V41_FLASH_AX_M.flags
+    assert a.flags is not TARGET_AGENT.flags
 
 
 def test_run_tasks_rejects_duplicate_ids(tmp_path, monkeypatch):
