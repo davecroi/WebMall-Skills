@@ -1,8 +1,8 @@
 # skillopt_webmall — SkillOpt integration for WebMall
 
 Not part of upstream WebMall or SkillOpt. Runs SkillOpt's validation-gated skill
-optimisation (condition C3) on WebMall with `deepseek/deepseek-v4.1-flash` (via OpenRouter) as optimizer and
-target. The archived run in `webmall_skills/results/skillopt/` used `gpt-6-luna`.
+optimisation (condition C3) on WebMall with `z-ai/glm-5.3-flash` (via OpenRouter) as optimizer and
+target. Earlier runs used `deepseek/deepseek-v4.1-flash` (test data in `skillopt_results/archive/`). The archived run in `webmall_skills/results/skillopt/` used `gpt-6-luna`.
 Design and known limitations: [`DESIGN.md`](DESIGN.md).
 
 ## Setup
@@ -20,7 +20,7 @@ works too. Training refuses to start if `env.skill_init` or `env.split_dir` does
 exist (SkillOpt would otherwise start from a blank skill).
 
 Prices: `env.price_input_per_m` / `env.price_output_per_m` in `configs/c3.yaml`
-(USD per 1M tokens of deepseek/deepseek-v4.1-flash) are used by the probe, training and the test
+(USD per 1M tokens of z-ai/glm-5.3-flash) are used by the probe, training and the test
 evaluation. The probe can override them with `--price-in` / `--price-out`; training
 reads them only from the YAML (or `--cfg-options env.price_input_per_m=…`).
 
@@ -75,7 +75,7 @@ Cost ledgers: `c3_ledger.json` (pilot and full run share the $25 ceiling),
 | `adapter.py` | SkillOpt `EnvAdapter`: val repeats, rollout cache, leakage guard, budget guard; the test split is never rolled out |
 | `dataloader.py` | SkillOpt dataloader for `webmall_skills/split/split_v2`; the test split loads as empty |
 | `tasks.py` | task index from WebMall's `task_sets.json`, task types |
-| `runner.py`, `agent_config.py` | AgentLab rollouts with the same agent (`AGENT_DEEPSEEK_V41_FLASH_AX_M`) and skill injection as the test runs |
+| `runner.py`, `agent_config.py` | AgentLab rollouts with the same agent (`agent_config.TARGET_AGENT` = `AGENT_GLM_53_FLASH_AX_M`) and skill injection as the test runs |
 | `scoring.py` | per-task CR/P/R/F1 with WebMall's formulas |
 | `trajectory.py` | condensed trajectories (`conversation.json`) for reflection: AX trees only for error, last-two and navigation steps, ≤ 8k chars each, ≤ 100k chars per trajectory |
 | `leakage.py` | rejects candidates that contain test-task phrases, model tokens or answer slugs |

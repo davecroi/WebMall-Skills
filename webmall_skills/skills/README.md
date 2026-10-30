@@ -43,6 +43,14 @@ on the train/val split (`webmall_skills/skillopt_webmall/`). `SKILL.md` is the b
 `HISTORY.md` and `history/` record every candidate edit, including rejected ones, and
 which versions became the new best. See `skillopt/README.md`.
 
+## `lite/` — lightweight skill from the GLM test-run failures
+
+A short skill written by hand from the failures of the GLM-5.3-flash no-skill and base-skill runs
+on the test split: submit before the step and time budget runs out, submit only URLs the agent opened,
+click **Submit Final Result**, stay on checkout until the order-received page loads, and match type,
+variant and ties exactly. It is derived from test-split runs, so validate it on `webmall_skills_val`.
+See `lite/README.md`.
+
 ## Adding a skill
 
 1. Create `webmall_skills/skills/<name>/SKILL.md` (e.g. `webmall_skills/skills/self_improved/SKILL.md`) and keep its provenance next to it.

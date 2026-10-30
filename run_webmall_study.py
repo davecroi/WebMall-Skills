@@ -7,7 +7,9 @@ repository.
 """
 
 import os
+import sys
 import logging
+import subprocess
 from dotenv import load_dotenv
 import bgym
 
@@ -199,20 +201,34 @@ AGENT_DEEPSEEK_V41_FLASH_AX_M = GenericAgentArgs(
     flags=FLAGS_AX_M,
 )
 
+AGENT_GLM_53_FLASH_AX_M = GenericAgentArgs(
+    chat_model_args=OpenRouterModelArgs(
+        model_name="z-ai/glm-5.3-flash",
+        max_total_tokens=1_048_576,
+        max_input_tokens=1_048_576 - 32_768,
+        max_new_tokens=32_768,
+        temperature=1,
+        provider={"sort": "price"},  # cheapest provider first, fallbacks stay enabled
+        vision_support=True,
+    ),
+    flags=FLAGS_AX_M,
+)
+
 current_file = Path(__file__).resolve()
 PATH_TO_DOT_ENV_FILE = current_file.parent / ".env"
 load_dotenv(PATH_TO_DOT_ENV_FILE)
 
 
 # choose your agent or provide a new agent
-agent_args = [AGENT_DEEPSEEK_V41_FLASH_AX_M]
+# agent_args = [AGENT_DEEPSEEK_V41_FLASH_AX_M]
+agent_args = [AGENT_GLM_53_FLASH_AX_M]
 
 # ## select the skill injected into the prompt (see webmall_skills/docs/skill_injection.md)
 # None = no-skill baseline; a name = webmall_skills/skills/<name>/SKILL.md; or a path to a .md file
-skill = None
-# skill = "base"       # hand-built base skill
+#skill = None
+#skill = "base"       # hand-built base skill
 # skill = "skillopt"   # SkillOpt C3 skill (best of the C3 run)
-
+skill = "lite"
 agent_args = [with_skill(a, skill_path(skill)) for a in agent_args]
 
 # ## select the benchmark to run on
@@ -223,8 +239,8 @@ agent_args = [with_skill(a, skill_path(skill)) for a in agent_args]
 # benchmark = "webmall_action_and_transaction_v1.0"
 # benchmark = "webmall_end_to_end_v1.0"
 # benchmark = "webmall_old_setup_failure_v1.0"  # 1 task that failed with the old DeepSeek setup
-benchmark = "webmall_deepseek_fix_check_v1.0"  # 5 tasks of mixed categories to check the DeepSeek fixes
-# benchmark = "webmall_skills_test"   # 33 held-out test tasks of the webmall_skills split
+# benchmark = "webmall_deepseek_fix_check_v1.0"  # 5 tasks of mixed categories to check the DeepSeek fixes
+benchmark = "webmall_skills_test"   # 33 held-out test tasks of the webmall_skills split
 # benchmark = "webmall_skills_val"    # 21 validation tasks (used by SkillOpt's gate)
 # benchmark = "webmall_skills_train"  # 26 training tasks
 split_benchmarks.register()
@@ -241,6 +257,21 @@ relaunch = False
 ## Number of parallel jobs
 n_jobs = 1  # Make sure to use 1 job when debugging in VSCode
 # n_jobs = -1  # to use all available cores
+
+
+def tee_console_to(log_path):
+    """Copy everything written to stdout/stderr into log_path while still showing it.
+
+    Works on the file descriptors, so output of Ray workers and subprocesses is captured too.
+    tee runs in its own session so Ctrl+C does not kill it before the last lines are written.
+    """
+    log_path.parent.mkdir(parents=True, exist_ok=True)
+    tee = subprocess.Popen(["tee", "-a", str(log_path)], stdin=subprocess.PIPE, start_new_session=True)
+    sys.stdout.flush()
+    sys.stderr.flush()
+    os.dup2(tee.stdin.fileno(), sys.stdout.fileno())
+    os.dup2(tee.stdin.fileno(), sys.stderr.fileno())
+    sys.stdout.reconfigure(line_buffering=True)  # keep stdout and stderr lines in order
 
 
 if __name__ == "__main__":  # necessary for dask backend
@@ -270,6 +301,8 @@ if __name__ == "__main__":  # necessary for dask backend
             dir=study_dir,
             suffix="AX_M",
         )
+
+    tee_console_to(Path(study.dir) / "console.log")
 
     parallel_backends = ["sequential", "ray"]
     study.run(
