@@ -20,12 +20,12 @@ cache are built so C4 can reuse them.
 | Topic | Decision |
 |---|---|
 | Split | Stratified split of the 91 WebMall tasks by category, seed 42 (matches SkillOpt `train.seed`), drawn once and committed before any experiment. v1: 1/1/3 per category (11/11/33). Runs after the pilot use `split_v2` (26/21/33), see below. |
-| Optimizer model | `deepseek/deepseek-v4.1-flash` via OpenRouter; the archived run used `gpt-6-luna` (self-improvement: the agent improves its own skill; matches SkillOpt's default optimizer = target). |
-| Target model | `deepseek/deepseek-v4.1-flash` via OpenRouter, AX tree + memory (`AGENT_DEEPSEEK_V41_FLASH_AX_M`); the archived run used `gpt-6-luna`. |
+| Optimizer model | `z-ai/glm-5.3-flash` via OpenRouter; earlier runs used `deepseek/deepseek-v4.1-flash` and `gpt-6-luna` (self-improvement: the agent improves its own skill; matches SkillOpt's default optimizer = target). |
+| Target model | `z-ai/glm-5.3-flash` via OpenRouter, AX tree + memory (`AGENT_GLM_53_FLASH_AX_M`, selected in `agent_config.py`); earlier runs used `deepseek/deepseek-v4.1-flash` and `gpt-6-luna`. |
 | Base skill author | `gpt-6.1-sol` (a fixed starting artefact, disclosed). |
 | SkillOpt mode | Fast loop only: `use_slow_update: false`, `use_meta_skill: false`. |
-| Gate metric | `soft` = mean per-task F1 over val (`split_v2`: 21 tasks × 1 repeat). |
-| Training budget | 4 epochs, batch 13 (2 steps per epoch), hard ceiling **$25** shared by pilot and full run. |
+| Gate metric | `mixed`, weight 0.04: 0.96 × mean CR + 0.04 × mean per-task F1 over val (`split_v2`: 21 tasks × 1 repeat). Task completion decides; F1 only breaks ties, since one more completed task (0.96/21 = 0.046) outweighs any F1 difference (≤ 0.04). |
+| Training budget | 2 epochs, batch 13 (2 steps per epoch, 4 gated steps), hard ceiling **$25** shared by pilot and full run. |
 | Integration | In-process adapter in `webmall_skills/skillopt_webmall/`; no SkillOpt or WebMall file is edited. |
 | History | Curated lineage export to `webmall_skills/skills/skillopt/`, rejected candidates included. |
 
@@ -70,14 +70,14 @@ cache are built so C4 can reuse them.
 
 **Rollout** of a batch with a candidate skill text:
 
-1. The agent is `with_skill(AGENT_DEEPSEEK_V41_FLASH_AX_M, skill_text=…, skill_name=…)`, the same
+1. The agent is `with_skill(TARGET_AGENT, skill_text=…, skill_name=…)`, the same
    injection used for test runs (skill under `## Skill Knowledge`).
 2. The batch's task IDs run as one AgentLab study (`runner.run_tasks`, 50 steps,
    `n_relaunch=1`), one study per repeat, under `<out_dir>/agentlab/r<k>/`.
 3. Per task (`scoring.read_outcome`): `hard` = CR (exact set match), `soft` = per-task F1
    with the formulas of `analyze_agentlab_results/summarize_study.calculation_results`;
    add-to-cart and checkout tasks use their checklist score, as WebMall does. Extra
-   fields: steps, tokens, `env_error`. The gate uses the mean of per-task F1; WebMall's
+   fields: steps, tokens, `env_error`. The gate uses mean CR, then the mean of per-task F1; WebMall's
    reported F1 is computed from averaged P and R, so the two can differ slightly. Both
    are reported.
 4. Train rollouts write `conversation.json` for SkillOpt's reflection: every step's URL,
@@ -140,14 +140,14 @@ version. The export is deterministic: same run dir → byte-identical output.
    (headroom).
 1. **Pilot:** one epoch; compare actual with estimated cost, inspect one
    `conversation.json` and the first candidate edit.
-2. **Full C3 run** (4 epochs) → report → export → review `HISTORY.md` and `SKILL.md`.
+2. **Full C3 run** (2 epochs) → report → export → review `HISTORY.md` and `SKILL.md`.
 3. **Held-out test** of best / base / no skill on the 33 test tasks, one run each.
 
 ## Thesis disclosures
 
 - C3 deviates from SkillOpt defaults (slow update and meta skill off).
 - The base skill was written by `gpt-6.1-sol`; all self-improvement uses `gpt-6-luna`.
-- The gate metric is mean per-task F1; reported F1 follows WebMall's aggregate formula.
+- The gate ranks by mean CR, then mean per-task F1; reported F1 follows WebMall's aggregate formula.
 - Luna supports only temperature 1, so val scores are noisy and the gate stays coarse.
 - Train and val were enlarged after the pilot; test was never changed.
 - Reflection input is condensed (selective AX trees), not the full observation stream.
@@ -156,7 +156,8 @@ version. The export is deterministic: same run dir → byte-identical output.
 
 - **The cache key has no model id.** Val rollouts cached by one target model are reused
   for any other. The archived gpt-6-luna caches must not be copied into the results root
-  of a DeepSeek run; use a fresh `SKILLOPT_RESULTS_DIR` per target model.
+  of a DeepSeek or GLM run; use a fresh `SKILLOPT_RESULTS_DIR` per target model, or move the old
+  caches into `skillopt_results/archive/` first.
 - **`export_lineage` deletes `--out` without checking it.** It `rmtree`s the output
   folder before writing; point `--out` only at an export folder.
 - **The `task_type` regex is narrower than WebMall's** (`^(.*?_Task)\d+$` vs.

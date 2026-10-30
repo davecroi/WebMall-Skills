@@ -25,15 +25,30 @@ def load(monkeypatch, tmp_path, *overrides):
 def test_config_values(monkeypatch, tmp_path):
     _, cfg = load(monkeypatch, tmp_path)
     assert cfg["env"] == "webmall"
-    assert cfg["optimizer_model"] == cfg["target_model"] == "deepseek/deepseek-v4.1-flash"
+    assert cfg["optimizer_model"] == cfg["target_model"] == "z-ai/glm-5.3-flash"
     assert cfg["optimizer_backend"] == "openai_compatible"
-    assert cfg["gate_metric"] == "soft"
+    assert cfg["gate_metric"] == "mixed"
     assert cfg["use_slow_update"] is False and cfg["use_meta_skill"] is False
     assert cfg["eval_test"] is False
-    assert cfg["num_epochs"] == 4 and cfg["batch_size"] == 13
+    assert cfg["num_epochs"] == 2 and cfg["batch_size"] == 13
     assert cfg["edit_budget"] == 4 and cfg["minibatch_size"] == 4
     assert cfg["val_repeats"] == 1 and cfg["budget_usd"] == 25
     assert cfg["split_dir"] == "webmall_skills/split/split_v2"
+
+
+def test_gate_ranks_by_completion_then_f1(monkeypatch, tmp_path):
+    from skillopt.evaluation.gate import select_gate_score
+    _, cfg = load(monkeypatch, tmp_path)
+    n_val, w = 21, cfg["gate_mixed_weight"]
+
+    def score(cr, f1):
+        return select_gate_score(cr, f1, cfg["gate_metric"], w)
+
+    # one more completed val task beats any F1 difference
+    assert score(1 / n_val, 0.0) > score(0.0, 1.0)
+    assert score(11 / n_val, 11 / n_val) > score(10 / n_val, 1.0)
+    # equal completion: higher F1 wins
+    assert score(10 / n_val, 0.6) > score(10 / n_val, 0.5)
 
 
 def test_adapter_built_from_config(monkeypatch, tmp_path):
