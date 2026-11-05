@@ -214,6 +214,35 @@ AGENT_GLM_53_FLASH_AX_M = GenericAgentArgs(
     flags=FLAGS_AX_M,
 )
 
+# OpenRouter stealth model (free during the preview); xhigh reasoning needs a larger
+# completion budget, or the answer is cut off after the reasoning
+AGENT_CROUTON_ALPHA_AX_M = GenericAgentArgs(
+    chat_model_args=OpenRouterModelArgs(
+        model_name="stealth/crouton-alpha",
+        max_total_tokens=1_048_576,
+        max_input_tokens=1_048_576 - 65_536,
+        max_new_tokens=65_536,
+        temperature=1,
+        reasoning={"effort": "xhigh"},
+        vision_support=True,
+    ),
+    flags=FLAGS_AX_M,
+)
+
+AGENT_GEMMA_4_26B_AX_M = GenericAgentArgs(
+    chat_model_args=OpenRouterModelArgs(
+        model_name="google/gemma-4-26b-a4b-it",
+        max_total_tokens=262_144,
+        max_input_tokens=262_144 - 32_768,
+        max_new_tokens=32_768,
+        temperature=1,
+        provider={"sort": "price"},  # cheapest provider first, fallbacks stay enabled
+        reasoning={"enabled": True},
+        vision_support=True,
+    ),
+    flags=FLAGS_AX_M,
+)
+
 current_file = Path(__file__).resolve()
 PATH_TO_DOT_ENV_FILE = current_file.parent / ".env"
 load_dotenv(PATH_TO_DOT_ENV_FILE)
@@ -221,14 +250,16 @@ load_dotenv(PATH_TO_DOT_ENV_FILE)
 
 # choose your agent or provide a new agent
 # agent_args = [AGENT_DEEPSEEK_V41_FLASH_AX_M]
+# agent_args = [AGENT_CROUTON_ALPHA_AX_M]
+# agent_args = [AGENT_GEMMA_4_26B_AX_M]
 agent_args = [AGENT_GLM_53_FLASH_AX_M]
 
 # ## select the skill injected into the prompt (see webmall_skills/docs/skill_injection.md)
 # None = no-skill baseline; a name = webmall_skills/skills/<name>/SKILL.md; or a path to a .md file
-#skill = None
+skill = None
 #skill = "base"       # hand-built base skill
 # skill = "skillopt"   # SkillOpt C3 skill (best of the C3 run)
-skill = "lite"
+#skill = "lite"
 agent_args = [with_skill(a, skill_path(skill)) for a in agent_args]
 
 # ## select the benchmark to run on
@@ -255,7 +286,7 @@ reproducibility_mode = False
 relaunch = False
 
 ## Number of parallel jobs
-n_jobs = 1  # Make sure to use 1 job when debugging in VSCode
+n_jobs = 5  # Make sure to use 1 job when debugging in VSCode
 # n_jobs = -1  # to use all available cores
 
 
