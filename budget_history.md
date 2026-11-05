@@ -16,3 +16,10 @@ Remaining balance of this project's API key (limit minus usage), logged after ev
 | 2026-11-05 14:47:42 CET | 77.8184 | -0.0000 | OpenRouter /api/v1/models price lookup for optimizer comparison (no inference) |
 | 2026-11-05 15:32:13 CET | 77.8184 | -0.0000 | Logged late: AgentLab live /models pricing test (15:24) + stealth/crouton-alpha xhigh test request, 403 region block (15:30) |
 | 2026-11-05 15:35:48 CET | 77.8184 | -0.0000 | google/gemma-4-26b-a4b-it:free test request (1 short prompt) |
+| 2026-11-05 15:38:28 CET | 77.8184 | -0.0000 | google/gemma-4-26b-a4b-it:free test request via google-ai-studio, reasoning enabled (1 short prompt) |
+| 2026-11-05 15:39:09 CET | 77.8184 | -0.0000 | OpenRouter /key + /credits lookup for free-model rate limits (no inference) |
+| 2026-11-05 15:52:32 CET | 77.8184 | -0.0000 | gemma-4-26b-a4b-it:free parallel trial n_jobs=5, webmall_deepseek_fix_check_v1.0, 5 tasks, no skill, AgentLab revert-reasoning-retry (all 5 aborted on 429 RetryError; study 2026-11-05_15-42-21 ..._parallel5) |
+| 2026-11-05 15:59:40 CET | 77.8184 | -0.0000 | OpenRouter endpoints lookup for google/gemma-4-26b-a4b-it (no inference) |
+| 2026-11-05 16:00:11 CET | 77.8184 | -0.0000 | google/gemma-4-26b-a4b-it (paid, sort price) test request (1 short prompt) |
+| 2026-11-05 20:26:10 CET | 77.1913 | 0.6271 | run_webmall_study skills-test, 33 tasks, no skill, n_jobs=5 Ray (z-ai/glm-5.3-flash, study 2026-11-05_19-04-34) |
+| 2026-11-05 21:05:47 CET | 77.0069 | 0.1844 | rerun 8 harness-failed tasks of skills-test, no skill, n_jobs=5, after None-content + evaluator settle fixes (z-ai/glm-5.3-flash, study 2026-11-05_20-37-23 ...rerun8..._parallel5) |
