@@ -13,6 +13,8 @@ For more detailed information about the benchmark design, task specifications, a
 
 This fork adds agent skills (`SKILL.md` documents with learned strategies) that are injected into the prompt of the AgentLab `GenericAgent` running WebMall, so the same agent can be compared with and without a skill. Two skills are included: a hand-built base skill and a self-improving skill evolved with SkillOpt (condition C3), evaluated on a fixed train/val/test split of the tasks. See [`webmall_skills/README.md`](webmall_skills/README.md) for setup, usage and layout; it requires `git submodule update --init --recursive` (which now also includes `SkillOpt`).
 
+The AgentLab and BrowserGym submodules point to forks with changes to the agent harness and the WebMall evaluator (bug fixes and answer-parsing robustness). Every change, why it was made and which runs it affects is listed in [`webmall_skills/docs/harness_changes.md`](webmall_skills/docs/harness_changes.md).
+
 ## Setting up WebMall
 
 ### Environment
