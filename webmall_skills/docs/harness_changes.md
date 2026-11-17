@@ -201,6 +201,37 @@ and the new parser (`replay_summary.md`, `replay_results.json`):
 - Limitation: the replay shows which steps would have continued, not how the episodes would have
   ended; that needs new runs. The retry change cannot be replayed offline (it needs new samples).
 
+### Evidence: online check on train tasks (2026-11-17)
+
+`task_results/2026-11-17_check_answer_repair/` (script, study, `check_rows.json`): the 10 train
+tasks of split_v2 with the most format-ended episodes in the SkillOpt `glm_lite` rollouts, each
+run once with no skill, the lite skill and the optimized lite skill, with H11 enabled
+(z-ai/glm-5.3-flash via Relace as before, 5 parallel jobs, 90 min, $1.18). The test split was not
+used.
+
+| | Old harness (SkillOpt rollouts, same 10 tasks) | H11 (this check) |
+|---|---|---|
+| Episodes | 21 | 30 |
+| Episodes ended by malformed answers | **12 (57 %)** | **0** |
+| Retry chains reaching attempt 1 / 2 / 3 / 4 | 59 / 23 / 16 / 12 | 38 / 3 / 1 / 0 |
+
+Per condition with H11:
+
+| Condition | Steps | Answers repaired (tool_call / duplicate tags) | Retries reaching attempt 1 / 2 / 3 | Ended by format | Hit the 50-step limit | F1 | Solved |
+|---|---|---|---|---|---|---|---|
+| no skill | 333 | 5 / 1 | 9 / 0 / 0 | 0 | 2 | 0.636 | 5 / 10 |
+| lite | 370 | **54** / 2 | 13 / 2 / 1 | 0 | 5 | 0.380 | 3 / 10 |
+| optimized | 262 | 22 / 4 | 16 / 1 / 0 | 0 | 0 | 0.848 | 7 / 10 |
+
+- No episode ended on the answer format; after a failed answer, the retry from the original prompt
+  succeeded at the first retry in 35 of 38 cases (old harness: 36 of 59).
+- The format drift itself is still visible and measurable: with the lite skill 15 % of steps
+  (54 of 370) were answered in `<tool_call>` syntax, vs. 1.5 % without a skill. Under the lite
+  skill, episodes that previously ended early now continue but often run into the 50-step limit
+  (5 of 10), so the lite skill's weakness shows up as slow progress rather than as aborts.
+- The scores are only an indication: one run per task, 10 tasks selected for having been
+  difficult, and not the evaluation split.
+
 ### Tests
 
 - `AgentLab/tests/agents/test_generic_prompt.py`: real failing GLM answers (shortened) as cases —
@@ -219,7 +250,8 @@ and the new parser (`replay_summary.md`, `replay_results.json`):
 
 ### Still to do before the final runs
 
-- Short validation run on train tasks (not test) to confirm aborts drop to about 0 online.
+- ~~Short validation run on train tasks (not test) to confirm aborts drop to about 0 online~~:
+  done, 0 of 30 episodes ended by the format (see "Evidence: online check on train tasks").
 - ~~Commit the AgentLab change and bump the submodule~~: AgentLab `4350801` on `revert-reasoning-retry`.
 - Freeze the setup (H11 plus the open setup decisions below) for all final runs.
 
