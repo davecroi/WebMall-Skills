@@ -23,3 +23,7 @@ Remaining balance of this project's API key (limit minus usage), logged after ev
 | 2026-11-05 16:00:11 CET | 77.8184 | -0.0000 | google/gemma-4-26b-a4b-it (paid, sort price) test request (1 short prompt) |
 | 2026-11-05 20:26:10 CET | 77.1913 | 0.6271 | run_webmall_study skills-test, 33 tasks, no skill, n_jobs=5 Ray (z-ai/glm-5.3-flash, study 2026-11-05_19-04-34) |
 | 2026-11-05 21:05:47 CET | 77.0069 | 0.1844 | rerun 8 harness-failed tasks of skills-test, no skill, n_jobs=5, after None-content + evaluator settle fixes (z-ai/glm-5.3-flash, study 2026-11-05_20-37-23 ...rerun8..._parallel5) |
+| 2026-11-05 23:46:04 CET | 76.5338 | 0.4731 | run_webmall_study skills-test, 33 tasks, skill lite, n_jobs=5 Ray (z-ai/glm-5.3-flash, study 2026-11-05_21-29-57) |
+| 2026-11-06 05:55:21 CET | 74.5787 | 1.9551 | SkillOpt glm_lite (z-ai/glm-5.3-flash optimizer+target, lite init, 2 epochs, n_jobs=5, skillopt_results/glm_lite) |
+| 2026-11-06 11:15:50 CET | 74.3909 | 0.1878 | run test_glm_lite_best: skills-test, 33 tasks, SkillOpt glm_lite best skill (step 2), n_jobs=5 Ray (z-ai/glm-5.3-flash, study 2026-11-06_10-49-25) |
+| 2026-11-17 21:13:14 CET | 73.2123 | 1.1786 | H11 check: 10 train tasks x 3 conditions (no skill, lite, glm_lite best), answer repair + retry from original prompt, n_jobs=5 (z-ai/glm-5.3-flash via Relace, task_results/2026-11-17_check_answer_repair/2026-11-17_19-43-09_study) |

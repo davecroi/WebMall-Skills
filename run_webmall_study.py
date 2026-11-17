@@ -97,6 +97,11 @@ FLAGS_AX_V.obs.use_som = True
 FLAGS_AX_M = FLAGS_default.copy()
 FLAGS_AX_M.use_memory = True
 FLAGS_AX_M.extra_instructions = "Use your memory to note down important information like the URLs of potential solutions and corresponding pricing information."
+# answer-format robustness (webmall_skills/docs/harness_changes.md, H11): recover the action from
+# answers in the model's native <tool_call> syntax or with a duplicated <action> tag, and
+# retry a malformed answer from the original prompt instead of showing the model its error
+FLAGS_AX_M.action.repair_malformed_actions = True
+FLAGS_AX_M.add_missparsed_messages = False
 
 AGENT_41_AX = GenericAgentArgs(
     chat_model_args=CHAT_MODEL_ARGS_DICT["openai/gpt-4.1-2025-04-14"],
